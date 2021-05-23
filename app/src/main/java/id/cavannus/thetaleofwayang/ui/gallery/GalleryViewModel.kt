@@ -1,13 +1,9 @@
 package id.cavannus.thetaleofwayang.ui.gallery
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import id.cavannus.thetaleofwayang.core.domain.usecase.WayangUseCase
 
-class GalleryViewModel : ViewModel() {
-
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is gallery Fragment"
-    }
-    val text: LiveData<String> = _text
+class GalleryViewModel(wayangUseCase: WayangUseCase) : ViewModel() {
+    val wayang = wayangUseCase.getAllWayang().asLiveData()
 }
