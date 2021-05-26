@@ -8,9 +8,11 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import id.cavannus.thetaleofwayang.R
+import id.cavannus.thetaleofwayang.databinding.FragmentSlideshowBinding
 
 class SlideshowFragment : Fragment() {
-
+    private var _binding: FragmentSlideshowBinding? = null
+    private val binding get() = _binding
     private lateinit var slideshowViewModel: SlideshowViewModel
 
     override fun onCreateView(
@@ -20,11 +22,12 @@ class SlideshowFragment : Fragment() {
     ): View? {
         slideshowViewModel =
                 ViewModelProvider(this).get(SlideshowViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_slideshow, container, false)
-        val textView: TextView = root.findViewById(R.id.text_slideshow)
-        slideshowViewModel.text.observe(viewLifecycleOwner, {
-            textView.text = it
-        })
-        return root
+        _binding = FragmentSlideshowBinding.inflate(inflater, container, false)
+        return binding?.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

@@ -19,15 +19,15 @@ class GalleryFragment : Fragment() {
     private val galleryViewModel: GalleryViewModel by viewModel()
 
     private var _binding: FragmentGalleryBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         _binding = FragmentGalleryBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -45,25 +45,25 @@ class GalleryFragment : Fragment() {
             galleryViewModel.wayang.observe(viewLifecycleOwner) { tourism ->
                 if (tourism != null) {
                     when (tourism) {
-                        is Resource.Loading<*> -> binding.progressBar.visibility = View.VISIBLE
+                        is Resource.Loading<*> -> binding?.progressBar?.visibility = View.VISIBLE
                         is Resource.Success<*> -> {
-                            binding.progressBar.visibility = View.GONE
+                            binding?.progressBar?.visibility = View.GONE
                             tourismAdapter.setData(tourism.data)
                         }
                         is Resource.Error<*> -> {
-                            binding.progressBar.visibility = View.GONE
-                            binding.viewError.root.visibility = View.VISIBLE
-                            binding.viewError.tvError.text =
+                            binding?.progressBar?.visibility = View.GONE
+                            binding?.viewError?.root?.visibility = View.VISIBLE
+                            binding?.viewError?.tvError?.text =
                                 tourism.message ?: getString(R.string.something_wrong)
                         }
                     }
                 }
             }
 
-            with(binding.rvWayang) {
-                layoutManager = LinearLayoutManager(context)
-                setHasFixedSize(true)
-                adapter = tourismAdapter
+            with(binding?.rvWayang) {
+                this?.layoutManager = LinearLayoutManager(context)
+                this?.setHasFixedSize(true)
+                this?.adapter = tourismAdapter
             }
         }
     }

@@ -3,7 +3,9 @@ package id.cavannus.thetaleofwayang.detail
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
+import id.cavannus.thetaleofwayang.MainActivity
 import id.cavannus.thetaleofwayang.R
 import id.cavannus.thetaleofwayang.core.domain.model.Wayang
 import id.cavannus.thetaleofwayang.databinding.ActivityDetailWayangBinding
@@ -20,13 +22,23 @@ class DetailWayangActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityDetailWayangBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setDisplayShowHomeEnabled(true)
+        }
 
         val detailWayang = intent.getParcelableExtra<Wayang>(EXTRA_DATA)
         showDetailWayang(detailWayang)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return super.onSupportNavigateUp()
     }
 
     private fun showDetailWayang(detailWayang: Wayang?) {

@@ -1,6 +1,8 @@
 package id.cavannus.thetaleofwayang.ui.home
 
+import android.content.Intent
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,9 +10,11 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import id.cavannus.thetaleofwayang.R
+import id.cavannus.thetaleofwayang.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
-
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding
     private lateinit var homeViewModel: HomeViewModel
 
     override fun onCreateView(
@@ -20,12 +24,13 @@ class HomeFragment : Fragment() {
     ): View? {
         homeViewModel =
                 ViewModelProvider(this).get(HomeViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_home, container, false)
-        val textView: TextView = root.findViewById(R.id.text_home)
-        homeViewModel.text.observe(viewLifecycleOwner, {
-            textView.text = it
-        })
-        return root
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding?.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
 

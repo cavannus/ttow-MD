@@ -55,6 +55,7 @@
             app:layout_constraintBottom_toTopOf="@+id/tv_item_subtitle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            android:fontFamily="@font/poppins"
             tools:text="@string/text_primary"
             android:textIsSelectable="true" />
 
@@ -70,6 +71,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/iv_item_image"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            android:fontFamily="@font/poppins"
             tools:text="@string/text_subtitle"
             android:textIsSelectable="true" />
 
