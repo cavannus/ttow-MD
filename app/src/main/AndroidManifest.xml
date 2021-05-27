@@ -7,6 +7,14 @@
     <uses-feature android:name="android.hardware.camera"
         android:required="true" />
 
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="https" />
+        </intent>
+    </queries>
+
     <application
         android:name=".MyApplication"
         android:icon="@mipmap/ic_launcher"
@@ -35,6 +43,17 @@
             android:label="@string/title_activity_detail"
             android:parentActivityName=".MainActivity"
             android:theme="@style/Theme.TheTaleOfWayang.NoActionBar" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="id.cavannus.thetaleofwayang"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/photo_file_path">
+            </meta-data>
+        </provider>
     </application>
 
 </manifest>

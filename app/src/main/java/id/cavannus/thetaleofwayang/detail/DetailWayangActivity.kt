@@ -3,9 +3,7 @@ package id.cavannus.thetaleofwayang.detail
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
-import id.cavannus.thetaleofwayang.MainActivity
 import id.cavannus.thetaleofwayang.R
 import id.cavannus.thetaleofwayang.core.domain.model.Wayang
 import id.cavannus.thetaleofwayang.databinding.ActivityDetailWayangBinding

@@ -8,7 +8,7 @@ import com.bumptech.glide.Glide
 import id.cavannus.thetaleofwayang.core.R
 import id.cavannus.thetaleofwayang.core.databinding.ItemListWayangBinding
 import id.cavannus.thetaleofwayang.core.domain.model.Wayang
-import java.util.ArrayList
+import java.util.*
 
 class WayangAdapter : RecyclerView.Adapter<WayangAdapter.ListViewHolder>() {
 
