@@ -7,6 +7,8 @@ class WayangInteractor(private val wayangRepository: IWayangRepository): WayangU
 
     override fun getAllWayang() = wayangRepository.getAllWayang()
 
+    override fun getAllStories() = wayangRepository.getAllStories()
+
     override fun getFavoriteWayang() = wayangRepository.getFavoriteWayang()
 
     override fun setFavoriteWayang(wayang: Wayang, state: Boolean) = wayangRepository.setFavoriteWayang(wayang, state)

@@ -1,49 +1,70 @@
 package id.cavannus.thetaleofwayang.core.utils
 
+import id.cavannus.thetaleofwayang.core.data.source.local.entity.StoriesEntity
 import id.cavannus.thetaleofwayang.core.data.source.local.entity.WayangEntity
+import id.cavannus.thetaleofwayang.core.data.source.remote.response.StoriesResponse
 import id.cavannus.thetaleofwayang.core.data.source.remote.response.WayangResponse
+import id.cavannus.thetaleofwayang.core.domain.model.Stories
 import id.cavannus.thetaleofwayang.core.domain.model.Wayang
 
 object DataMapper {
     fun mapResponsesToEntities(input: List<WayangResponse>): List<WayangEntity> {
-        val tourismList = ArrayList<WayangEntity>()
+        val wayangList = ArrayList<WayangEntity>()
         input.map {
-            val tourism = WayangEntity(
-                id = it.id,
-                nama = it.nama,
-                golongan = it.golongan,
-                ayah = it.ayah,
-                ibu = it.ibu,
-                anak = it.anak,
-                image_url = it.image_url,
+            val wayang = WayangEntity(
+                id_wayang = it.id_wayang,
+                nm_wayang = it.nm_wayang,
+                watak_wayang = it.watak_wayang,
                 isFavorite = false
             )
-            tourismList.add(tourism)
+            wayangList.add(wayang)
         }
-        return tourismList
+        return wayangList
     }
 
     fun mapEntitiesToDomain(input: List<WayangEntity>): List<Wayang> =
         input.map {
             Wayang(
-                id = it.id,
-                nama = it.nama,
-                golongan = it.golongan,
-                ayah = it.ayah,
-                ibu = it.ibu,
-                anak = it.anak,
-                image_url = it.image_url,
+                id_wayang = it.id_wayang,
+                nm_wayang = it.nm_wayang,
+                watak_wayang = it.watak_wayang,
                 isFavorite = it.isFavorite
             )
         }
     fun mapDomainToEntity(input: Wayang) = WayangEntity(
-        id = input.id,
-        nama = input.nama,
-        golongan = input.golongan,
-        ayah = input.ayah,
-        ibu = input.ibu,
-        anak = input.anak,
-        image_url = input.image_url,
+        id_wayang = input.id_wayang,
+        nm_wayang = input.nm_wayang,
+        watak_wayang = input.watak_wayang,
+        isFavorite = input.isFavorite
+    )
+
+    fun mapResponsesToEntitiesStory(input: List<StoriesResponse>): List<StoriesEntity> {
+        val wayangList = ArrayList<StoriesEntity>()
+        input.map {
+            val wayang = StoriesEntity(
+                id_wayang = it.id_wayang,
+                nm_wayang = it.nm_wayang,
+                watak_wayang = it.watak_wayang,
+                isFavorite = false
+            )
+            wayangList.add(wayang)
+        }
+        return wayangList
+    }
+
+    fun mapEntitiesToDomainStory(input: List<StoriesEntity>): List<Stories> =
+        input.map {
+            Stories(
+                id_wayang = it.id_wayang,
+                nm_wayang = it.nm_wayang,
+                watak_wayang = it.watak_wayang,
+                isFavorite = it.isFavorite
+            )
+        }
+    fun mapDomainToEntityStory(input: Stories) = StoriesEntity(
+        id_wayang = input.id_wayang,
+        nm_wayang = input.nm_wayang,
+        watak_wayang = input.watak_wayang,
         isFavorite = input.isFavorite
     )
 }

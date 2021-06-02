@@ -3,6 +3,7 @@ package id.cavannus.thetaleofwayang.core.data.source.remote
 import android.util.Log
 import id.cavannus.thetaleofwayang.core.data.source.remote.network.ApiResponse
 import id.cavannus.thetaleofwayang.core.data.source.remote.network.ApiService
+import id.cavannus.thetaleofwayang.core.data.source.remote.response.StoriesResponse
 import id.cavannus.thetaleofwayang.core.data.source.remote.response.WayangResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -18,6 +19,23 @@ class RemoteDataSource(private val apiService: ApiService) {
                 val dataArray = response.wayangs
                 if (dataArray.isNotEmpty()){
                     emit(ApiResponse.Success(response.wayangs))
+                } else {
+                    emit(ApiResponse.Empty)
+                }
+            } catch (e : Exception){
+                emit(ApiResponse.Error(e.toString()))
+                Log.e("RemoteDataSource", e.toString())
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    suspend fun getAllStories(): Flow<ApiResponse<List<StoriesResponse>>> {
+        return flow {
+            try {
+                val response = apiService.getListStories()
+                val dataArray = response.story
+                if (dataArray.isNotEmpty()){
+                    emit(ApiResponse.Success(response.story))
                 } else {
                     emit(ApiResponse.Empty)
                 }

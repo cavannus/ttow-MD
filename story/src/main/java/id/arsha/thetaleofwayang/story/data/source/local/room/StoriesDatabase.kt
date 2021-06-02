@@ -1,0 +1,13 @@
+package id.arsha.thetaleofwayang.story.data.source.local.room
+
+//import androidx.room.Database
+//import androidx.room.RoomDatabase
+//import id.arsha.thetaleofwayang.story.data.source.local.entity.StoriesEntity
+//import id.arsha.thetaleofwayang.story.data.source.local.room.StoriesDao
+//
+//@Database(entities = [StoriesEntity::class], version = 1, exportSchema = false)
+//abstract class StoriesDatabase : RoomDatabase() {
+//
+//    abstract fun storiesDao(): StoriesDao
+//
+//}

@@ -1,3 +1,5 @@
+include ':wayang'
+include ':stories'
 include ':favorite'
 include ':core'
 include ':app'

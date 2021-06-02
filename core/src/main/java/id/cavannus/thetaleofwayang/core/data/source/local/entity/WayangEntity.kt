@@ -12,26 +12,14 @@ import kotlinx.parcelize.Parcelize
 data class WayangEntity(
     @PrimaryKey
     @NonNull
-    @ColumnInfo(name = "id")
-    var id: String,
+    @ColumnInfo(name = "id_wayang")
+    var id_wayang: String,
 
-    @ColumnInfo(name = "nama")
-    var nama: String,
+    @ColumnInfo(name = "nm_wayang")
+    var nm_wayang: String,
 
-    @ColumnInfo(name = "golongan")
-    var golongan: String,
-
-    @ColumnInfo(name = "ayah")
-    var ayah: String,
-
-    @ColumnInfo(name = "ibu")
-    var ibu: String,
-
-    @ColumnInfo(name = "anak")
-    var anak: String,
-
-    @ColumnInfo(name = "image_url")
-    var image_url: String,
+    @ColumnInfo(name = "watak_wayang")
+    var watak_wayang: String,
 
     @ColumnInfo(name = "isFavorite")
     var isFavorite: Boolean = false

@@ -5,12 +5,8 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Wayang(
-    val id: String,
-    val nama: String,
-    val golongan: String,
-    val ayah: String,
-    val ibu: String,
-    val anak: String,
-    val image_url: String,
+    val id_wayang: String,
+    val nm_wayang: String,
+    val watak_wayang: String,
     val isFavorite: Boolean
 ) : Parcelable

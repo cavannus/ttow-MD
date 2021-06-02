@@ -1,6 +1,7 @@
 package id.cavannus.thetaleofwayang.core.data.source.local.room
 
 import androidx.room.*
+import id.cavannus.thetaleofwayang.core.data.source.local.entity.StoriesEntity
 import id.cavannus.thetaleofwayang.core.data.source.local.entity.WayangEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -15,6 +16,12 @@ interface WayangDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertWayang(wayang: List<WayangEntity>)
+
+    @Query("SELECT * FROM stories")
+    fun getAllStories(): Flow<List<StoriesEntity>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertStories(stories: List<StoriesEntity>)
 
     @Update
     fun updateFavoriteWayang(wayang: WayangEntity)

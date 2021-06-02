@@ -1,9 +1,11 @@
 package id.cavannus.thetaleofwayang.core.data
 
 import id.cavannus.thetaleofwayang.core.data.source.local.LocalDataSource
-import id.cavannus.thetaleofwayang.core.data.source.remote.RemoteDataSource
 import id.cavannus.thetaleofwayang.core.data.source.remote.network.ApiResponse
+import id.cavannus.thetaleofwayang.core.data.source.remote.RemoteDataSource
+import id.cavannus.thetaleofwayang.core.data.source.remote.response.StoriesResponse
 import id.cavannus.thetaleofwayang.core.data.source.remote.response.WayangResponse
+import id.cavannus.thetaleofwayang.core.domain.model.Stories
 import id.cavannus.thetaleofwayang.core.domain.model.Wayang
 import id.cavannus.thetaleofwayang.core.domain.repository.IWayangRepository
 import id.cavannus.thetaleofwayang.core.utils.AppExecutors
@@ -32,6 +34,24 @@ class WayangRepository(
             override suspend fun saveCallResult(data: List<WayangResponse>) {
                 val wayangList = DataMapper.mapResponsesToEntities(data)
                 localDataSource.insertWayang(wayangList)
+            }
+        }.asFlow()
+
+    override fun getAllStories(): Flow<Resource<List<Stories>>> =
+        object : NetworkBoundResource<List<Stories>, List<StoriesResponse>>() {
+            override fun loadFromDB(): Flow<List<Stories>> {
+                return localDataSource.getAllStories().map { DataMapper.mapEntitiesToDomainStory(it) }
+            }
+
+            override fun shouldFetch(data: List<Stories>?): Boolean =
+                data == null || data.isEmpty()
+
+            override suspend fun createCall(): Flow<ApiResponse<List<StoriesResponse>>> =
+                remoteDataSource.getAllStories()
+
+            override suspend fun saveCallResult(data: List<StoriesResponse>) {
+                val storiesList = DataMapper.mapResponsesToEntitiesStory(data)
+                localDataSource.insertStories(storiesList)
             }
         }.asFlow()
 

@@ -4,8 +4,7 @@
     package="id.cavannus.thetaleofwayang">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-feature android:name="android.hardware.camera"
-        android:required="true" />
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
 
     <queries>
         <intent>
@@ -37,12 +36,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".detail.DetailWayangActivity"
-            android:label="@string/title_activity_detail"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/Theme.TheTaleOfWayang.NoActionBar" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

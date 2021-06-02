@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.cavannus.thetaleofwayang.core.ui.WayangAdapter
-import id.cavannus.thetaleofwayang.detail.DetailWayangActivity
 import id.cavannus.thetaleofwayang.favorite.databinding.FragmentFavoriteBinding
+import id.cavannus.thetaleofwayang.wayang.detail.DetailWayangActivity
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.context.loadKoinModules
 
@@ -44,7 +44,7 @@ class FavoriteFragment : Fragment() {
 
             favoriteViewModel.favoriteWayang.observe(viewLifecycleOwner) { dataWayang ->
                 wayangAdapter.setData(dataWayang)
-                binding.ivEmpty.visibility = if (dataWayang.isNotEmpty()) View.GONE else View.VISIBLE
+                binding.lottieEmpty.visibility = if (dataWayang.isNotEmpty()) View.GONE else View.VISIBLE
                 binding.textEmpty.visibility = if (dataWayang.isNotEmpty()) View.GONE else View.VISIBLE
             }
 

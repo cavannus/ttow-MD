@@ -37,10 +37,11 @@ class WayangAdapter : RecyclerView.Adapter<WayangAdapter.ListViewHolder>() {
         fun bind(data: Wayang) {
             with(binding) {
                 Glide.with(itemView.context)
-                    .load(data.image_url)
+                    //.load(data.image_url)
+                    .load(R.drawable.punakawan)
                     .into(ivItemImage)
-                tvItemTitle.text = data.nama
-                tvItemSubtitle.text = data.golongan
+                tvItemTitle.text = data.nm_wayang
+                tvItemSubtitle.text = data.watak_wayang
             }
         }
 
