@@ -42,8 +42,8 @@ class GetGalleryActivity : AppCompatActivity() {
             startActivityForResult(callGalleryIntent, mGalleryRequestCode)
         }
 
-        if (supportActionBar != null) {
-            (supportActionBar as ActionBar).title = "Foto Wayang"
+        binding.getGalleryBtnBack.setOnClickListener{
+            onBackPressed()
         }
 
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT

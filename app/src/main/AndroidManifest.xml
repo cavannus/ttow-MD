@@ -38,19 +38,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TheTaleOfWayang"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".classifier.GetGalleryActivity" />
+        <activity
+            android:name=".classifier.GetGalleryActivity"
+            android:theme="@style/Theme.TheTaleOfWayang.NoActionBar"/>
+        <activity
+            android:name=".classifier.GetCameraActivity"
+            android:theme="@style/Theme.TheTaleOfWayang.NoActionBar"/>
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:theme="@style/Theme.TheTaleOfWayang.NoActionBar" />
-        <activity android:name=".classifier.GetCameraActivity" />
         <activity
             android:name=".splash.SplashScreenActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
+            android:theme="@style/Theme.TheTaleOfWayang.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -62,7 +65,7 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/photo_file_path"></meta-data>
+                android:resource="@xml/photo_file_paths"/>
         </provider>
     </application>
 

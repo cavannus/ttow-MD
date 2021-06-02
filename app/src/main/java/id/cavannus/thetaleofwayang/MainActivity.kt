@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
                 setOf(
                         R.id.nav_home,
                         R.id.nav_gallery,
-                        R.id.nav_slideshow,
+                        R.id.nav_search,
                         R.id.nav_favorite
                 ), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -84,41 +84,41 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
-    private fun dispatchTakePictureIntent() {
-        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
-            takePictureIntent.resolveActivity(packageManager)?.also {
-                val photoFile: File? = try {
-                    createImageFile()
-                } catch (ex: IOException) {
-                    null
-                }
-
-                photoFile?.also {
-                    val photoURI: Uri = FileProvider.getUriForFile(
-                            this,
-                            "id.cavannus.thetaleofwayang",
-                            it
-                    )
-                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-                    startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO)
-                }
-            }
-        }
-    }
-
-    @SuppressLint("SimpleDateFormat")
-    private fun createImageFile(): File {
-        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-        //image will restore in Android/data/id.cavannus.thetaleofwayang/file/Pictures
-        val storageDir: File? = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        return File.createTempFile(
-                "JPEG_${timeStamp}_",
-                ".jpg",
-                storageDir
-        ).apply {
-            currentPhotoPath = absolutePath
-        }
-    }
+//    private fun dispatchTakePictureIntent() {
+//        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+//            takePictureIntent.resolveActivity(packageManager)?.also {
+//                val photoFile: File? = try {
+//                    createImageFile()
+//                } catch (ex: IOException) {
+//                    null
+//                }
+//
+//                photoFile?.also {
+//                    val photoURI: Uri = FileProvider.getUriForFile(
+//                            this,
+//                            "id.cavannus.thetaleofwayang",
+//                            it
+//                    )
+//                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+//                    startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO)
+//                }
+//            }
+//        }
+//    }
+//
+//    @SuppressLint("SimpleDateFormat")
+//    private fun createImageFile(): File {
+//        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+//        //image will restore in Android/data/id.cavannus.thetaleofwayang/file/Pictures
+//        val storageDir: File? = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+//        return File.createTempFile(
+//                "JPEG_${timeStamp}_",
+//                ".jpg",
+//                storageDir
+//        ).apply {
+//            currentPhotoPath = absolutePath
+//        }
+//    }
 
     companion object {
         private const val REQUEST_TAKE_PHOTO = 1

@@ -2,4 +2,5 @@
 <resources>
     <string name="next">Next</string>
     <string name="previous">Prev</string>
+    <string name="story">Cerita Wayang</string>
 </resources>

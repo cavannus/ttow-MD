@@ -1,4 +1,4 @@
-package id.cavannus.thetaleofwayang.wayang.slideshow
+package id.cavannus.thetaleofwayang.wayang.search
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,12 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import id.cavannus.thetaleofwayang.wayang.databinding.FragmentSlideshowBinding
+import id.cavannus.thetaleofwayang.wayang.databinding.FragmentSearchBinding
 
-class SlideshowFragment : Fragment() {
-    private var _binding: FragmentSlideshowBinding? = null
+class SearchFragment : Fragment() {
+    private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding
-    private lateinit var slideshowViewModel: SlideshowViewModel
+    private lateinit var slideshowViewModel: SearchViewModel
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -19,8 +19,8 @@ class SlideshowFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         slideshowViewModel =
-                ViewModelProvider(this).get(SlideshowViewModel::class.java)
-        _binding = FragmentSlideshowBinding.inflate(inflater, container, false)
+                ViewModelProvider(this).get(SearchViewModel::class.java)
+        _binding = FragmentSearchBinding.inflate(inflater, container, false)
         return binding?.root
     }
 

@@ -21,6 +21,10 @@ class DetailStoriesActivity : AppCompatActivity() {
 
         val detailStories = intent.getParcelableExtra<Stories>(EXTRA_STORIES)
         showDetailStories(detailStories)
+
+        binding.storyBtnBack.setOnClickListener{
+            onBackPressed()
+        }
     }
 
     private fun showDetailStories(detailStories: Stories?) {

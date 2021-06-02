@@ -8,7 +8,7 @@
     <string name="action_settings">Settings</string>
     <string name="menu_home">Beranda</string>
     <string name="menu_gallery">Galeri</string>
-    <string name="menu_slideshow">Pencarian</string>
+    <string name="menu_search">Pencarian</string>
     <string name="app_logo">App Logo</string>
     <string name="title_favorite">Favorit</string>
     <string name="no_data">Anda belum memiliki wayang favorit. Ayo segera tambahkan!</string>
@@ -31,4 +31,6 @@
     <string name="pick">Ambil Dari Galeri</string>
     <string name="app_desc">The Tale of Wayang merupakan aplikasi pengenalan karakter dan cerita pewayangan yang disajikan dengan konsep interaktif dan memanfaatkan teknologi machine learning untuk mengklasifikasi jenis wayang</string>
     <string name="welcome">Selamat Datang</string>
+    <string name="get_gallery">Foto Wayang</string>
+    <string name="get_camera">Scan Wayang</string>
 </resources>

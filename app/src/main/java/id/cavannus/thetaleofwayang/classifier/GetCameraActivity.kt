@@ -29,10 +29,6 @@ class GetCameraActivity : AppCompatActivity() {
         binding = ActivityGetCameraBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if (supportActionBar != null) {
-            (supportActionBar as ActionBar).title = "Scan Wayang"
-        }
-
         resultbar = findViewById(R.id.result_bar)
         processtime = findViewById(R.id.process_time_bar)
 
