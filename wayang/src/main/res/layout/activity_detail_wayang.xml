@@ -134,23 +134,6 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-<!--            <com.google.android.material.tabs.TabLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="@dimen/app_bar_height"-->
-<!--                android:background="#fff"-->
-<!--                android:fontFamily="@font/poppins"-->
-<!--                app:tabTextColor="@android:color/black">-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="@string/title_stories"-->
-<!--                    android:gravity="center"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:textSize="16sp" />-->
-
-<!--            </com.google.android.material.tabs.TabLayout>-->
-
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.core.widget.NestedScrollView

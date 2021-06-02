@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".classifier.GetCameraActivity">
+
+    <com.priyankvasa.android.cameraviewex.CameraView
+        android:id="@+id/camera"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:layout_margin="16dp"
+        android:adjustViewBounds="true"
+        android:elevation="4dp"
+        android:keepScreenOn="true"
+        app:aspectRatio="4:3"
+        app:autoFocus="continuous_picture"
+        app:awb="auto"
+        app:cameraMode="single_capture"
+        app:facing="back"
+        app:flash="auto"
+        app:layout_constraintBottom_toTopOf="@+id/capturePhoto"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:opticalStabilization="true"
+        app:outputFormat="jpeg"
+        app:pinchToZoom="true"
+        app:shutter="short_time"
+        app:touchToFocus="true"
+        app:zsl="true" />
+
+    <TextView
+        android:id="@+id/process_time_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:padding="2dp"
+        android:textAlignment="gravity"
+        android:textSize="16sp"
+        android:background="#9000CC33"
+        app:layout_constraintBottom_toBottomOf="@+id/process_name_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/process_name_bar"
+        app:layout_constraintTop_toTopOf="@+id/process_name_bar"
+        app:layout_constraintVertical_bias="0.0"
+        android:textIsSelectable="true" />
+
+    <TextView
+        android:id="@+id/process_name_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        android:background="#9000CC33"
+        android:padding="2dp"
+        android:text="Waktu : "
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/prediction_bar"
+        app:layout_constraintTop_toTopOf="@+id/prediction_bar" />
+
+    <Button
+        android:id="@+id/capturePhoto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@drawable/bg_button"
+        android:text="Deteksi"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintLeft_toLeftOf="@+id/camera"
+        app:layout_constraintRight_toRightOf="@+id/camera"
+        app:layout_constraintTop_toBottomOf="@+id/camera" />
+
+    <TextView
+        android:id="@+id/prediction_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Hasil Prediksi :"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/camera"
+        app:layout_constraintTop_toBottomOf="@+id/capturePhoto" />
+
+    <TextView
+        android:id="@+id/result_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/prediction_bar"
+        app:layout_constraintTop_toBottomOf="@+id/prediction_bar"
+        android:textIsSelectable="true" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -56,28 +56,28 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        val fab: FloatingActionButton = findViewById(R.id.fab)
-        fab.setOnClickListener {
-            dispatchTakePictureIntent()
-        }
+//        val fab: FloatingActionButton = findViewById(R.id.fab)
+//        fab.setOnClickListener {
+//            dispatchTakePictureIntent()
+//        }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        //TESTING RESULT OK
-        //if result ok, image will appear on Home Fragment
-        if(requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK){
-            val imgView: ImageView = findViewById(R.id.img_result)
-            if(currentPhotoPath.isNotEmpty()){
-                Glide
-                        .with(this)
-                        .load(currentPhotoPath)
-                        .apply(RequestOptions().override(200))
-                        .into(imgView)
-            }
-        }
-    }
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//
+//        //TESTING RESULT OK
+//        //if result ok, image will appear on Home Fragment
+//        if(requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK){
+//            val imgView: ImageView = findViewById(R.id.img_result)
+//            if(currentPhotoPath.isNotEmpty()){
+//                Glide
+//                        .with(this)
+//                        .load(currentPhotoPath)
+//                        .apply(RequestOptions().override(200))
+//                        .into(imgView)
+//            }
+//        }
+//    }
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
