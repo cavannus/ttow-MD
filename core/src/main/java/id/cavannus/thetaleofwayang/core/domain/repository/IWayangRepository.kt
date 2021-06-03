@@ -15,4 +15,6 @@ interface IWayangRepository {
 
     fun getAllStories(): Flow<Resource<List<Stories>>>
 
+    fun searchWayang(query: String): Flow<Resource<List<Wayang>>>
+
 }

@@ -1,13 +1,10 @@
 package id.cavannus.thetaleofwayang.wayang.search
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import id.cavannus.thetaleofwayang.core.domain.usecase.WayangUseCase
 
-class SearchViewModel : ViewModel() {
-
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is slideshow Fragment"
-    }
-    val text: LiveData<String> = _text
+class SearchViewModel(private val wayangUseCase: WayangUseCase) : ViewModel() {
+    fun searchWayang(query: String) =
+            wayangUseCase.searchWayang(query).asLiveData()
 }

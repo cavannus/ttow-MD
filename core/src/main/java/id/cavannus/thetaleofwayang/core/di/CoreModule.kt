@@ -37,7 +37,7 @@ val networkModule = module {
     single {
         val retrofit = Retrofit.Builder()
             //.baseUrl("https://wayangapi.herokuapp.com/api/")
-            .baseUrl("http://wayang-314813.et.r.appspot.com/")
+            .baseUrl("https://wayang-314813.et.r.appspot.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(get())
             .build()

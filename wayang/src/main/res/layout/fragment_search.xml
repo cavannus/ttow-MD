@@ -34,6 +34,7 @@
                     android:layout_marginEnd="8dp"
                     android:inputType="text"
                     android:singleLine="true"
+                    android:queryHint="@string/search_hint"
                     android:iconifiedByDefault="false"
                     android:background="@drawable/bg_search_box"
                     android:textColor="@android:color/white"
@@ -50,13 +51,38 @@
             android:orientation="vertical"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <ProgressBar
-                android:id="@+id/main_progressBar"
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/progress_bar"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="?attr/actionBarSize"
-                android:padding="150dp"
-                android:visibility="gone" />
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shimmer_auto_start="true">
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <include layout="@layout/item_list_placeholder" />
+                        <include layout="@layout/item_list_placeholder" />
+                        <include layout="@layout/item_list_placeholder" />
+                        <include layout="@layout/item_list_placeholder" />
+                    </LinearLayout>
+                </ScrollView>
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+<!--            <ProgressBar-->
+<!--                android:id="@+id/main_progressBar"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_marginBottom="?attr/actionBarSize"-->
+<!--                android:padding="150dp"-->
+<!--                android:visibility="gone" />-->
 
             <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
@@ -65,11 +91,10 @@
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_user"
+                    android:id="@+id/rv_wayang"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     tools:listitem="@layout/item_list_wayang" />
-
             </androidx.core.widget.NestedScrollView>
         </LinearLayout>
 

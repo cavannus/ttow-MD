@@ -11,4 +11,7 @@ data class WayangResponse(
 
     @field:SerializedName("watak_wayang")
     val watak_wayang: String,
+
+    @field:SerializedName("foto")
+    val foto: String
 )

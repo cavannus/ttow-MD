@@ -15,6 +15,9 @@ data class WayangEntity(
     @ColumnInfo(name = "id_wayang")
     var id_wayang: String,
 
+    @ColumnInfo(name = "foto_wayang")
+    var foto_wayang: String,
+
     @ColumnInfo(name = "nm_wayang")
     var nm_wayang: String,
 

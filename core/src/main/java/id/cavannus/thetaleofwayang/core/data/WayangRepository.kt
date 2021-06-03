@@ -1,5 +1,6 @@
 package id.cavannus.thetaleofwayang.core.data
 
+import android.util.Log
 import id.cavannus.thetaleofwayang.core.data.source.local.LocalDataSource
 import id.cavannus.thetaleofwayang.core.data.source.remote.network.ApiResponse
 import id.cavannus.thetaleofwayang.core.data.source.remote.RemoteDataSource
@@ -55,9 +56,28 @@ class WayangRepository(
             }
         }.asFlow()
 
+    override fun searchWayang(query: String): Flow<Resource<List<Wayang>>> =
+            object : NetworkBoundResource<List<Wayang>, List<WayangResponse>>(){
+                override fun loadFromDB(): Flow<List<Wayang>> {
+                    return localDataSource.searchWayang(query).map {
+                        DataMapper.mapSearchEntitiesToDomain(it)
+                    }
+                }
+
+                override fun shouldFetch(data: List<Wayang>?): Boolean =
+                    data == null || data.isEmpty()
+
+                override suspend fun createCall(): Flow<ApiResponse<List<WayangResponse>>> =
+                        remoteDataSource.searchWayang(query)
+
+                override suspend fun saveCallResult(data: List<WayangResponse>) {
+                    val wayangList = DataMapper.mapSearchResponsesToEntities(data)
+                    localDataSource.insertSearchWayang(wayangList)
+                }
+            }.asFlow()
+
     override fun getFavoriteWayang(): Flow<List<Wayang>> {
         return localDataSource.getFavoriteWayang().map { DataMapper.mapEntitiesToDomain(it) }
-
     }
 
     override fun setFavoriteWayang(wayang: Wayang, state: Boolean) {

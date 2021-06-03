@@ -16,7 +16,6 @@ import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.context.loadKoinModules
 
 class GalleryFragment : Fragment() {
-
     private val galleryViewModel: GalleryViewModel by viewModel()
 
     private var _binding: FragmentGalleryBinding? = null
@@ -37,8 +36,8 @@ class GalleryFragment : Fragment() {
         loadKoinModules(wayangModule)
 
         if (activity != null) {
-            val tourismAdapter = WayangAdapter()
-            tourismAdapter.onItemClick = { selectedData ->
+            val wayangAdapter = WayangAdapter()
+            wayangAdapter.onItemClick = { selectedData ->
                 val intent = Intent(activity, DetailWayangActivity::class.java)
                 intent.putExtra(DetailWayangActivity.EXTRA_DATA, selectedData)
                 startActivity(intent)
@@ -50,7 +49,7 @@ class GalleryFragment : Fragment() {
                         is Resource.Loading<*> -> binding?.progressBar?.visibility = View.VISIBLE
                         is Resource.Success<*> -> {
                             binding?.progressBar?.visibility = View.GONE
-                            tourismAdapter.setData(tourism.data)
+                            wayangAdapter.setData(tourism.data)
                         }
                         is Resource.Error<*> -> {
                             binding?.progressBar?.visibility = View.GONE
@@ -64,7 +63,7 @@ class GalleryFragment : Fragment() {
             with(binding?.rvWayang) {
                 this?.layoutManager = LinearLayoutManager(context)
                 this?.setHasFixedSize(true)
-                this?.adapter = tourismAdapter
+                this?.adapter = wayangAdapter
             }
         }
     }

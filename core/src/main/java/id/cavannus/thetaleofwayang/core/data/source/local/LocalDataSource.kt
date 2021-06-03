@@ -1,5 +1,7 @@
 package id.cavannus.thetaleofwayang.core.data.source.local
 
+import android.util.Log
+import id.cavannus.thetaleofwayang.core.data.source.local.entity.SearchWayangEntity
 import id.cavannus.thetaleofwayang.core.data.source.local.entity.StoriesEntity
 import id.cavannus.thetaleofwayang.core.data.source.local.entity.WayangEntity
 import id.cavannus.thetaleofwayang.core.data.source.local.room.WayangDao
@@ -20,5 +22,12 @@ class LocalDataSource(private val wayangDao: WayangDao) {
     fun setFavoriteWayang(wayang: WayangEntity, newState: Boolean) {
         wayang.isFavorite = newState
         wayangDao.updateFavoriteWayang(wayang)
+    }
+
+    fun searchWayang(query: String) : Flow<List<SearchWayangEntity>> = wayangDao.searchWayang(query)
+
+    suspend fun insertSearchWayang(wayangList: List<SearchWayangEntity>) {
+        Log.d("LOCAL REPO", wayangList.size.toString())
+        wayangDao.insertSearchWayang(wayangList)
     }
 }

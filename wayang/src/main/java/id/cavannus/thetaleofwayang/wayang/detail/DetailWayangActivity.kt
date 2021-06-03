@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
 import id.cavannus.thetaleofwayang.R
 import id.cavannus.thetaleofwayang.core.data.Resource
 import id.cavannus.thetaleofwayang.core.domain.model.Wayang
@@ -84,8 +85,7 @@ class DetailWayangActivity : AppCompatActivity() {
             binding.wayangName.text = detailWayang.nm_wayang
             binding.tvWatak.text = detailWayang.watak_wayang
             Glide.with(this@DetailWayangActivity)
-                //.load(detailWayang.image_url)
-                .load(id.cavannus.thetaleofwayang.core.R.drawable.punakawan)
+                .load(detailWayang.foto_wayang)
                 .into(binding.imgItem)
 
 //            binding.detailContent.btnVideo.setOnClickListener {
@@ -95,20 +95,34 @@ class DetailWayangActivity : AppCompatActivity() {
 //            }
 
             var statusFavorite = detailWayang.isFavorite
-            setStatusFavorite(statusFavorite)
+            checkStatusFavorite(detailWayang.isFavorite)
             binding.fab.setOnClickListener {
                 statusFavorite = !statusFavorite
                 detailWayangViewModel.setFavoriteWayang(detailWayang, statusFavorite)
-                setStatusFavorite(statusFavorite)
+                setStatusFavorite(statusFavorite, detailWayang)
             }
         }
     }
 
-    private fun setStatusFavorite(statusFavorite: Boolean) {
+    private fun checkStatusFavorite(statusFavorite: Boolean) {
         if (statusFavorite) {
             binding.fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_favorite_white))
         } else {
             binding.fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_not_favorite_white))
         }
+    }
+
+    private fun setStatusFavorite(statusFavorite: Boolean, detailWayang: Wayang?) {
+        if (statusFavorite) {
+            checkStatusFavorite(statusFavorite)
+            showSnackbar(resources.getString(R.string.add_fav, detailWayang?.nm_wayang))
+        } else {
+            checkStatusFavorite(statusFavorite)
+            showSnackbar(resources.getString(R.string.rem_fav, detailWayang?.nm_wayang))
+        }
+    }
+
+    private fun showSnackbar(msg: String) {
+        Snackbar.make(binding.parentLayout, msg, Snackbar.LENGTH_SHORT).show()
     }
 }

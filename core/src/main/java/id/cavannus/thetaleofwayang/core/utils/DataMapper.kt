@@ -1,5 +1,6 @@
 package id.cavannus.thetaleofwayang.core.utils
 
+import id.cavannus.thetaleofwayang.core.data.source.local.entity.SearchWayangEntity
 import id.cavannus.thetaleofwayang.core.data.source.local.entity.StoriesEntity
 import id.cavannus.thetaleofwayang.core.data.source.local.entity.WayangEntity
 import id.cavannus.thetaleofwayang.core.data.source.remote.response.StoriesResponse
@@ -13,6 +14,7 @@ object DataMapper {
         input.map {
             val wayang = WayangEntity(
                 id_wayang = it.id_wayang,
+                foto_wayang = it.foto,
                 nm_wayang = it.nm_wayang,
                 watak_wayang = it.watak_wayang,
                 isFavorite = false
@@ -26,13 +28,16 @@ object DataMapper {
         input.map {
             Wayang(
                 id_wayang = it.id_wayang,
+                foto_wayang = it.foto_wayang,
                 nm_wayang = it.nm_wayang,
                 watak_wayang = it.watak_wayang,
                 isFavorite = it.isFavorite
             )
         }
+
     fun mapDomainToEntity(input: Wayang) = WayangEntity(
         id_wayang = input.id_wayang,
+        foto_wayang = input.foto_wayang,
         nm_wayang = input.nm_wayang,
         watak_wayang = input.watak_wayang,
         isFavorite = input.isFavorite
@@ -61,10 +66,37 @@ object DataMapper {
                 isFavorite = it.isFavorite
             )
         }
+
     fun mapDomainToEntityStory(input: Stories) = StoriesEntity(
         id_wayang = input.id_wayang,
         nm_wayang = input.nm_wayang,
         watak_wayang = input.watak_wayang,
         isFavorite = input.isFavorite
     )
+
+    fun mapSearchResponsesToEntities(input: List<WayangResponse>): List<SearchWayangEntity> {
+        val wayangList = ArrayList<SearchWayangEntity>()
+        input.map {
+            val wayang = SearchWayangEntity(
+                    id_wayang = it.id_wayang,
+                    foto_wayang = it.foto,
+                    nm_wayang = it.nm_wayang,
+                    watak_wayang = it.watak_wayang,
+                    isFavorite = false
+            )
+            wayangList.add(wayang)
+        }
+        return wayangList
+    }
+
+    fun mapSearchEntitiesToDomain(input: List<SearchWayangEntity>): List<Wayang> =
+            input.map {
+                Wayang(
+                        id_wayang = it.id_wayang,
+                        foto_wayang = it.foto_wayang,
+                        nm_wayang = it.nm_wayang,
+                        watak_wayang = it.watak_wayang,
+                        isFavorite = it.isFavorite
+                )
+            }
 }

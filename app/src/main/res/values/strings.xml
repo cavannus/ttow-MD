@@ -33,4 +33,7 @@
     <string name="welcome">Selamat Datang</string>
     <string name="get_gallery">Foto Wayang</string>
     <string name="get_camera">Scan Wayang</string>
+
+    <string name="rem_fav">%s telah dihapus dari favorit!</string>
+    <string name="add_fav">%s telah ditambahkan ke favorit!</string>
 </resources>

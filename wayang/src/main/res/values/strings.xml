@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="search">Ayo cari wayang!</string>
+    <string name="search_error">Pencarian tidak ditemukan</string>
+    <string name="search_hint">Cari wayang disini!</string>
 </resources>

@@ -10,4 +10,5 @@ interface WayangUseCase {
     fun getAllStories(): Flow<Resource<List<Stories>>>
     fun getFavoriteWayang(): Flow<List<Wayang>>
     fun setFavoriteWayang(wayang: Wayang, state: Boolean)
+    fun searchWayang(query: String): Flow<Resource<List<Wayang>>>
 }

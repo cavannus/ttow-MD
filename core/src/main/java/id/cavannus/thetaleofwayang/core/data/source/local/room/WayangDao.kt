@@ -1,6 +1,7 @@
 package id.cavannus.thetaleofwayang.core.data.source.local.room
 
 import androidx.room.*
+import id.cavannus.thetaleofwayang.core.data.source.local.entity.SearchWayangEntity
 import id.cavannus.thetaleofwayang.core.data.source.local.entity.StoriesEntity
 import id.cavannus.thetaleofwayang.core.data.source.local.entity.WayangEntity
 import kotlinx.coroutines.flow.Flow
@@ -25,4 +26,10 @@ interface WayangDao {
 
     @Update
     fun updateFavoriteWayang(wayang: WayangEntity)
+
+    @Query("SELECT * FROM searchWayang WHERE nm_wayang LIKE :query")
+    fun searchWayang(query: String): Flow<List<SearchWayangEntity>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertSearchWayang(wayangList: List<SearchWayangEntity>)
 }
