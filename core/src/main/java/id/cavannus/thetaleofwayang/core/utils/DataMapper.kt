@@ -47,32 +47,35 @@ object DataMapper {
         val wayangList = ArrayList<StoriesEntity>()
         input.map {
             val wayang = StoriesEntity(
-                id_wayang = it.id_wayang,
-                nm_wayang = it.nm_wayang,
-                watak_wayang = it.watak_wayang,
-                isFavorite = false
+                id_cerita = it.id_cerita,
+                judul = it.judul,
+                cerita = it.cerita,
+                sumber = it.sumber,
+                tokoh = it.tokoh
             )
             wayangList.add(wayang)
         }
         return wayangList
     }
 
-    fun mapEntitiesToDomainStory(input: List<StoriesEntity>): List<Stories> =
+    fun mapEntitiesToDomainStoryList(input: List<StoriesEntity>): List<Stories> =
         input.map {
             Stories(
-                id_wayang = it.id_wayang,
-                nm_wayang = it.nm_wayang,
-                watak_wayang = it.watak_wayang,
-                isFavorite = it.isFavorite
+                id_cerita = it.id_cerita,
+                judul = it.judul,
+                cerita = it.cerita,
+                sumber = it.sumber,
+                tokoh = it.tokoh
             )
         }
 
-    fun mapDomainToEntityStory(input: Stories) = StoriesEntity(
-        id_wayang = input.id_wayang,
-        nm_wayang = input.nm_wayang,
-        watak_wayang = input.watak_wayang,
-        isFavorite = input.isFavorite
-    )
+//    fun mapEntitiesToDomainStory(input: StoriesEntity) = Stories(
+//        id_cerita = input.id_cerita,
+//        judul = input.judul,
+//        cerita = input.cerita,
+//        sumber = input.sumber,
+//        tokoh = input.tokoh
+//    )
 
     fun mapSearchResponsesToEntities(input: List<WayangResponse>): List<SearchWayangEntity> {
         val wayangList = ArrayList<SearchWayangEntity>()

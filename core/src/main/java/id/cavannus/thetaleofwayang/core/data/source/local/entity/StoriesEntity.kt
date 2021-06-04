@@ -12,15 +12,18 @@ import kotlinx.parcelize.Parcelize
 data class StoriesEntity(
     @PrimaryKey
     @NonNull
-    @ColumnInfo(name = "id_wayang")
-    var id_wayang: String,
+    @ColumnInfo(name = "id_cerita")
+    var id_cerita: String,
 
-    @ColumnInfo(name = "nm_wayang")
-    var nm_wayang: String,
+    @ColumnInfo(name = "judul")
+    var judul: String,
 
-    @ColumnInfo(name = "watak_wayang")
-    var watak_wayang: String,
+    @ColumnInfo(name = "cerita")
+    var cerita: String,
 
-    @ColumnInfo(name = "isFavorite")
-    var isFavorite: Boolean = false
+    @ColumnInfo(name = "sumber")
+    var sumber: String,
+
+    @ColumnInfo(name = "tokoh")
+    var tokoh: String
 ) : Parcelable

@@ -29,6 +29,10 @@ class GetCameraActivity : AppCompatActivity() {
         binding = ActivityGetCameraBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.getCameraBtnBack.setOnClickListener {
+            onBackPressed()
+        }
+
         resultbar = findViewById(R.id.result_bar)
         processtime = findViewById(R.id.process_time_bar)
 

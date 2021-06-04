@@ -13,9 +13,13 @@ class LocalDataSource(private val wayangDao: WayangDao) {
 
     fun getAllStories(): Flow<List<StoriesEntity>> = wayangDao.getAllStories()
 
-    suspend fun insertWayang(wayangList: List<WayangEntity>) = wayangDao.insertWayang(wayangList)
+    fun getStoriesById(id: String): Flow<StoriesEntity> = wayangDao.getStoryById(id)
 
-    suspend fun insertStories(storiesList: List<StoriesEntity>) = wayangDao.insertStories(storiesList)
+    suspend fun insertWayang(wayangList: List<WayangEntity>) =
+            wayangDao.insertWayang(wayangList)
+
+    suspend fun insertStories(storiesList: List<StoriesEntity>) =
+            wayangDao.insertStories(storiesList)
 
     fun getFavoriteWayang(): Flow<List<WayangEntity>> = wayangDao.getFavoriteWayang()
 
@@ -26,8 +30,6 @@ class LocalDataSource(private val wayangDao: WayangDao) {
 
     fun searchWayang(query: String) : Flow<List<SearchWayangEntity>> = wayangDao.searchWayang(query)
 
-    suspend fun insertSearchWayang(wayangList: List<SearchWayangEntity>) {
-        Log.d("LOCAL REPO", wayangList.size.toString())
+    suspend fun insertSearchWayang(wayangList: List<SearchWayangEntity>) =
         wayangDao.insertSearchWayang(wayangList)
-    }
 }

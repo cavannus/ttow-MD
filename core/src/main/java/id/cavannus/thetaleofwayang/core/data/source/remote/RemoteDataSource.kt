@@ -30,10 +30,10 @@ class RemoteDataSource(private val apiService: ApiService) {
         }.flowOn(Dispatchers.IO)
     }
 
-    suspend fun getAllStories(): Flow<ApiResponse<List<StoriesResponse>>> {
+    suspend fun getAllStories(query: String): Flow<ApiResponse<List<StoriesResponse>>> {
         return flow {
             try {
-                val response = apiService.getListStories()
+                val response = apiService.getListStories(query)
                 val dataArray = response.story
                 if (dataArray.isNotEmpty()){
                     emit(ApiResponse.Success(response.story))

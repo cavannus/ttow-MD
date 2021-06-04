@@ -36,6 +36,7 @@ class DetailWayangActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val detailWayang = intent.getParcelableExtra<Wayang>(EXTRA_DATA)
+        val namaWayang = detailWayang?.nm_wayang
         showDetailWayang(detailWayang)
 
         val storiesAdapter = StoriesAdapter()
@@ -45,18 +46,20 @@ class DetailWayangActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        detailWayangViewModel.wayang.observe(this) { wayang ->
-            if (wayang != null) {
-                when (wayang) {
-                    is Resource.Loading<*> -> binding.progressBar.visibility = View.VISIBLE
-                    is Resource.Success<*> -> {
-                        binding.progressBar.visibility = View.GONE
-                        storiesAdapter.setData(wayang.data)
-                    }
-                    is Resource.Error<*> -> {
-                        binding.progressBar.visibility = View.GONE
+        if (namaWayang != null) {
+            detailWayangViewModel.getAllStories(namaWayang).observe(this) { wayang ->
+                if (wayang != null) {
+                    when (wayang) {
+                        is Resource.Loading<*> -> binding.progressBar.visibility = View.VISIBLE
+                        is Resource.Success<*> -> {
+                            binding.progressBar.visibility = View.GONE
+                            storiesAdapter.setData(wayang.data)
+                        }
+                        is Resource.Error<*> -> {
+                            binding.progressBar.visibility = View.GONE
 //                        binding.lottieError.visibility = View.VISIBLE
 //                        binding.textError.visibility = View.VISIBLE
+                        }
                     }
                 }
             }

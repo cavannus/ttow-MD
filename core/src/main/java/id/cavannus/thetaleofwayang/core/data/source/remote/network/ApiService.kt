@@ -9,8 +9,10 @@ interface ApiService {
     @GET("index")
     suspend fun getList(): ListWayangResponse
 
-    @GET("index")
-    suspend fun getListStories(): ListStoriesResponse
+    @GET("getcerita.php")
+    suspend fun getListStories(
+            @Query("tk") tk: String
+    ): ListStoriesResponse
 
     @GET("getwayang.php")
     suspend fun searchWayang(

@@ -1,6 +1,8 @@
 package id.cavannus.thetaleofwayang.core.domain.repository
 
 import id.cavannus.thetaleofwayang.core.data.Resource
+import id.cavannus.thetaleofwayang.core.data.source.local.entity.StoriesEntity
+import id.cavannus.thetaleofwayang.core.data.source.local.entity.WayangEntity
 import id.cavannus.thetaleofwayang.core.domain.model.Stories
 import id.cavannus.thetaleofwayang.core.domain.model.Wayang
 import kotlinx.coroutines.flow.Flow
@@ -13,7 +15,7 @@ interface IWayangRepository {
 
     fun setFavoriteWayang(wayang: Wayang, state: Boolean)
 
-    fun getAllStories(): Flow<Resource<List<Stories>>>
+    fun getAllStories(query: String): Flow<Resource<List<Stories>>>
 
     fun searchWayang(query: String): Flow<Resource<List<Wayang>>>
 

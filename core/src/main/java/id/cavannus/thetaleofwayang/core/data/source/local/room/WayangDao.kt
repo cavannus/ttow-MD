@@ -21,6 +21,9 @@ interface WayangDao {
     @Query("SELECT * FROM stories")
     fun getAllStories(): Flow<List<StoriesEntity>>
 
+    @Query("SELECT * FROM stories WHERE id_cerita = :id")
+    fun getStoryById(id: String): Flow<StoriesEntity>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertStories(stories: List<StoriesEntity>)
 

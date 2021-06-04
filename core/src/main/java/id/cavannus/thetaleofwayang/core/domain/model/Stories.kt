@@ -5,8 +5,9 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Stories(
-    val id_wayang: String,
-    val nm_wayang: String,
-    val watak_wayang: String,
-    val isFavorite: Boolean
+    val id_cerita: String,
+    val judul: String,
+    val cerita: String,
+    val sumber: String,
+    val tokoh: String
 ) : Parcelable

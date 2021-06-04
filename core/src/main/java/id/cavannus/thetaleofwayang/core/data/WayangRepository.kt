@@ -1,7 +1,7 @@
 package id.cavannus.thetaleofwayang.core.data
 
-import android.util.Log
 import id.cavannus.thetaleofwayang.core.data.source.local.LocalDataSource
+import id.cavannus.thetaleofwayang.core.data.source.local.entity.StoriesEntity
 import id.cavannus.thetaleofwayang.core.data.source.remote.network.ApiResponse
 import id.cavannus.thetaleofwayang.core.data.source.remote.RemoteDataSource
 import id.cavannus.thetaleofwayang.core.data.source.remote.response.StoriesResponse
@@ -38,17 +38,17 @@ class WayangRepository(
             }
         }.asFlow()
 
-    override fun getAllStories(): Flow<Resource<List<Stories>>> =
+    override fun getAllStories(query: String): Flow<Resource<List<Stories>>> =
         object : NetworkBoundResource<List<Stories>, List<StoriesResponse>>() {
             override fun loadFromDB(): Flow<List<Stories>> {
-                return localDataSource.getAllStories().map { DataMapper.mapEntitiesToDomainStory(it) }
+                return localDataSource.getAllStories().map { DataMapper.mapEntitiesToDomainStoryList(it) }
             }
 
             override fun shouldFetch(data: List<Stories>?): Boolean =
                 data == null || data.isEmpty()
 
             override suspend fun createCall(): Flow<ApiResponse<List<StoriesResponse>>> =
-                remoteDataSource.getAllStories()
+                remoteDataSource.getAllStories(query)
 
             override suspend fun saveCallResult(data: List<StoriesResponse>) {
                 val storiesList = DataMapper.mapResponsesToEntitiesStory(data)

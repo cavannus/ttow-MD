@@ -9,7 +9,7 @@ class WayangInteractor(private val wayangRepository: IWayangRepository): WayangU
 
     override fun getAllWayang() = wayangRepository.getAllWayang()
 
-    override fun getAllStories() = wayangRepository.getAllStories()
+    override fun getAllStories(query: String) = wayangRepository.getAllStories(query)
 
     override fun getFavoriteWayang() = wayangRepository.getFavoriteWayang()
 

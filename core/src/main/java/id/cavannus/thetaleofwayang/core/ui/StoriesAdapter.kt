@@ -36,12 +36,8 @@ class StoriesAdapter : RecyclerView.Adapter<StoriesAdapter.ListViewHolder>() {
         private val binding = ListStoriesBinding.bind(itemView)
         fun bind(data: Stories) {
             with(binding) {
-                Glide.with(itemView.context)
-                    //.load(data.image_url)
-                    .load(R.drawable.punakawan)
-                    .into(ivStory)
-                tvStoryTitle.text = data.nm_wayang
-                tvStorySubtitle.text = data.watak_wayang
+                tvStoryTitle.text = data.judul
+                tvStorySubtitle.text = data.cerita
             }
         }
 
