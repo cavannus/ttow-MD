@@ -38,6 +38,7 @@ class WayangAdapter : RecyclerView.Adapter<WayangAdapter.ListViewHolder>() {
             with(binding) {
                 Glide.with(itemView.context)
                     .load(data.foto_wayang)
+                    .override(500)
                     .into(ivItemImage)
                 tvItemTitle.text = data.nm_wayang
                 tvItemSubtitle.text = data.watak_wayang

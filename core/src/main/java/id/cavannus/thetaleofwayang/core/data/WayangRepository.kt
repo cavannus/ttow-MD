@@ -12,7 +12,9 @@ import id.cavannus.thetaleofwayang.core.domain.repository.IWayangRepository
 import id.cavannus.thetaleofwayang.core.utils.AppExecutors
 import id.cavannus.thetaleofwayang.core.utils.DataMapper
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.count
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEmpty
 
 class WayangRepository(
     private val remoteDataSource: RemoteDataSource,
@@ -41,11 +43,11 @@ class WayangRepository(
     override fun getAllStories(query: String): Flow<Resource<List<Stories>>> =
         object : NetworkBoundResource<List<Stories>, List<StoriesResponse>>() {
             override fun loadFromDB(): Flow<List<Stories>> {
-                return localDataSource.getAllStories().map { DataMapper.mapEntitiesToDomainStoryList(it) }
+                return localDataSource.getAllStories(query).map { DataMapper.mapEntitiesToDomainStoryList(it) }
             }
 
             override fun shouldFetch(data: List<Stories>?): Boolean =
-                data == null || data.isEmpty()
+                    data == null || data.isEmpty()
 
             override suspend fun createCall(): Flow<ApiResponse<List<StoriesResponse>>> =
                 remoteDataSource.getAllStories(query)

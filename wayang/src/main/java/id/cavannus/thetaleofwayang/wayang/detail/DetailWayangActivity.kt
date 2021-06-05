@@ -2,6 +2,7 @@ package id.cavannus.thetaleofwayang.wayang.detail
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -37,6 +38,7 @@ class DetailWayangActivity : AppCompatActivity() {
 
         val detailWayang = intent.getParcelableExtra<Wayang>(EXTRA_DATA)
         val namaWayang = detailWayang?.nm_wayang
+        namaWayang?.let { Log.d("DETAIL WAYANG", it) }
         showDetailWayang(detailWayang)
 
         val storiesAdapter = StoriesAdapter()
@@ -49,6 +51,7 @@ class DetailWayangActivity : AppCompatActivity() {
         if (namaWayang != null) {
             detailWayangViewModel.getAllStories(namaWayang).observe(this) { wayang ->
                 if (wayang != null) {
+                    Log.d("DETAIL WAYANG OBSERVE", wayang.data.toString())
                     when (wayang) {
                         is Resource.Loading<*> -> binding.progressBar.visibility = View.VISIBLE
                         is Resource.Success<*> -> {
@@ -89,6 +92,7 @@ class DetailWayangActivity : AppCompatActivity() {
             binding.tvWatak.text = detailWayang.watak_wayang
             Glide.with(this@DetailWayangActivity)
                 .load(detailWayang.foto_wayang)
+                .override(500)
                 .into(binding.imgItem)
 
 //            binding.detailContent.btnVideo.setOnClickListener {

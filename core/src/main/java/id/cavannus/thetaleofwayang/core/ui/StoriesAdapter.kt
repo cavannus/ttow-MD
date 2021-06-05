@@ -4,10 +4,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import id.cavannus.thetaleofwayang.core.R
 import id.cavannus.thetaleofwayang.core.databinding.ListStoriesBinding
 import id.cavannus.thetaleofwayang.core.domain.model.Stories
+import id.cavannus.thetaleofwayang.core.utils.Helper
 import java.util.*
 
 class StoriesAdapter : RecyclerView.Adapter<StoriesAdapter.ListViewHolder>() {

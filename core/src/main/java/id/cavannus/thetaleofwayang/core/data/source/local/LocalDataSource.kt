@@ -11,9 +11,7 @@ class LocalDataSource(private val wayangDao: WayangDao) {
 
     fun getAllWayang(): Flow<List<WayangEntity>> = wayangDao.getAllWayang()
 
-    fun getAllStories(): Flow<List<StoriesEntity>> = wayangDao.getAllStories()
-
-    fun getStoriesById(id: String): Flow<StoriesEntity> = wayangDao.getStoryById(id)
+    fun getAllStories(tokoh: String): Flow<List<StoriesEntity>> = wayangDao.getAllStories(tokoh)
 
     suspend fun insertWayang(wayangList: List<WayangEntity>) =
             wayangDao.insertWayang(wayangList)
