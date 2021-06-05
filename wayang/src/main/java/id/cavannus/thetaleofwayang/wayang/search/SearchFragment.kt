@@ -42,9 +42,16 @@ class SearchFragment : Fragment() {
         if(activity != null){
             val searchAdapter = WayangAdapter()
             searchAdapter.onItemClick = { selectedData ->
-                val intent = Intent(activity, DetailWayangActivity::class.java)
-                intent.putExtra(DetailWayangActivity.EXTRA_DATA, selectedData)
-                startActivity(intent)
+                searchViewModel.getFavorite(selectedData.nm_wayang)
+                        .observe(viewLifecycleOwner) { wayang ->
+                            if(wayang != null){
+                                selectedData.isFavorite = wayang.isFavorite
+                            }
+
+                            val intent = Intent(activity, DetailWayangActivity::class.java)
+                            intent.putExtra(DetailWayangActivity.EXTRA_DATA, selectedData)
+                            startActivity(intent)
+                        }
             }
 
             val searchManager = activity?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
@@ -56,7 +63,8 @@ class SearchFragment : Fragment() {
                         override fun onQueryTextSubmit(query: String?): Boolean {
                             searchView.clearFocus()
                             if (query != null) {
-                                searchViewModel.searchWayang(query).observe(viewLifecycleOwner) { wayang ->
+                                searchViewModel.searchWayang(query)
+                                        .observe(viewLifecycleOwner) { wayang ->
                                     when(wayang) {
                                         is Resource.Loading -> {
                                             binding?.lottieError?.visibility = View.GONE

@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import id.cavannus.thetaleofwayang.core.R
 import id.cavannus.thetaleofwayang.core.databinding.ListStoriesBinding
 import id.cavannus.thetaleofwayang.core.domain.model.Stories
-import id.cavannus.thetaleofwayang.core.utils.Helper
 import java.util.*
 
 class StoriesAdapter : RecyclerView.Adapter<StoriesAdapter.ListViewHolder>() {

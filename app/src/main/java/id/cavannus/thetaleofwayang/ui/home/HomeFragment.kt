@@ -9,8 +9,8 @@ import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import id.cavannus.thetaleofwayang.R
-import id.cavannus.thetaleofwayang.classifier.GetGalleryActivity
 import id.cavannus.thetaleofwayang.classifier.GetCameraActivity
+import id.cavannus.thetaleofwayang.classifier.GetGalleryActivity
 import id.cavannus.thetaleofwayang.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment(), View.OnClickListener {
@@ -35,10 +35,10 @@ class HomeFragment : Fragment(), View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        btnCamera = view.findViewById(R.id.btn_camera);
-        btnCamera.setOnClickListener(this);
-        btnGaleri = view.findViewById(R.id.btn_gallery);
-        btnGaleri.setOnClickListener(this);
+        btnCamera = view.findViewById(R.id.btn_camera)
+	    btnCamera.setOnClickListener(this)
+	    btnGaleri = view.findViewById(R.id.btn_gallery)
+	    btnGaleri.setOnClickListener(this)
     }
 
     override fun onClick(v: View) {

@@ -77,7 +77,7 @@ object DataMapper {
 //        tokoh = input.tokoh
 //    )
 
-    fun mapSearchResponsesToEntities(input: List<WayangResponse>): List<SearchWayangEntity> {
+    fun mapResponsesToEntitiesSearch(input: List<WayangResponse>): List<SearchWayangEntity> {
         val wayangList = ArrayList<SearchWayangEntity>()
         input.map {
             val wayang = SearchWayangEntity(
@@ -92,7 +92,7 @@ object DataMapper {
         return wayangList
     }
 
-    fun mapSearchEntitiesToDomain(input: List<SearchWayangEntity>): List<Wayang> =
+    fun mapEntitiesToDomainSearch(input: List<SearchWayangEntity>): List<Wayang> =
             input.map {
                 Wayang(
                         id_wayang = it.id_wayang,
@@ -102,4 +102,13 @@ object DataMapper {
                         isFavorite = it.isFavorite
                 )
             }
+
+    fun mapEntitiesToDomainFavorite(input: WayangEntity): Wayang =
+            Wayang(
+                    id_wayang = input.id_wayang,
+                    foto_wayang = input.foto_wayang,
+                    nm_wayang = input.nm_wayang,
+                    watak_wayang = input.watak_wayang,
+                    isFavorite = input.isFavorite
+            )
 }

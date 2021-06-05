@@ -1,7 +1,6 @@
 package id.cavannus.thetaleofwayang.core.data.source.remote
 
 import android.util.Log
-import id.cavannus.thetaleofwayang.core.data.source.local.entity.WayangEntity
 import id.cavannus.thetaleofwayang.core.data.source.remote.network.ApiResponse
 import id.cavannus.thetaleofwayang.core.data.source.remote.network.ApiService
 import id.cavannus.thetaleofwayang.core.data.source.remote.response.StoriesResponse

@@ -1,9 +1,8 @@
 package id.cavannus.thetaleofwayang.core.data
 
 import id.cavannus.thetaleofwayang.core.data.source.local.LocalDataSource
-import id.cavannus.thetaleofwayang.core.data.source.local.entity.StoriesEntity
-import id.cavannus.thetaleofwayang.core.data.source.remote.network.ApiResponse
 import id.cavannus.thetaleofwayang.core.data.source.remote.RemoteDataSource
+import id.cavannus.thetaleofwayang.core.data.source.remote.network.ApiResponse
 import id.cavannus.thetaleofwayang.core.data.source.remote.response.StoriesResponse
 import id.cavannus.thetaleofwayang.core.data.source.remote.response.WayangResponse
 import id.cavannus.thetaleofwayang.core.domain.model.Stories
@@ -12,9 +11,7 @@ import id.cavannus.thetaleofwayang.core.domain.repository.IWayangRepository
 import id.cavannus.thetaleofwayang.core.utils.AppExecutors
 import id.cavannus.thetaleofwayang.core.utils.DataMapper
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.count
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onEmpty
 
 class WayangRepository(
     private val remoteDataSource: RemoteDataSource,
@@ -62,7 +59,7 @@ class WayangRepository(
             object : NetworkBoundResource<List<Wayang>, List<WayangResponse>>(){
                 override fun loadFromDB(): Flow<List<Wayang>> {
                     return localDataSource.searchWayang(query).map {
-                        DataMapper.mapSearchEntitiesToDomain(it)
+                        DataMapper.mapEntitiesToDomainSearch(it)
                     }
                 }
 
@@ -73,13 +70,19 @@ class WayangRepository(
                         remoteDataSource.searchWayang(query)
 
                 override suspend fun saveCallResult(data: List<WayangResponse>) {
-                    val wayangList = DataMapper.mapSearchResponsesToEntities(data)
+                    val wayangList = DataMapper.mapResponsesToEntitiesSearch(data)
                     localDataSource.insertSearchWayang(wayangList)
                 }
             }.asFlow()
 
     override fun getFavoriteWayang(): Flow<List<Wayang>> {
         return localDataSource.getFavoriteWayang().map { DataMapper.mapEntitiesToDomain(it) }
+    }
+
+    override fun getFavoriteWayangByName(name: String): Flow<Wayang> {
+        return localDataSource.getFavoriteWayangByName(name).map {
+            DataMapper.mapEntitiesToDomainFavorite(it)
+        }
     }
 
     override fun setFavoriteWayang(wayang: Wayang, state: Boolean) {

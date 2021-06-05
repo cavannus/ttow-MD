@@ -13,6 +13,8 @@ class WayangInteractor(private val wayangRepository: IWayangRepository): WayangU
 
     override fun getFavoriteWayang() = wayangRepository.getFavoriteWayang()
 
+    override fun getFavoriteWayangByName(name: String): Flow<Wayang> = wayangRepository.getFavoriteWayangByName(name)
+
     override fun setFavoriteWayang(wayang: Wayang, state: Boolean) = wayangRepository.setFavoriteWayang(wayang, state)
 
     override fun searchWayang(query: String): Flow<Resource<List<Wayang>>> = wayangRepository.searchWayang(query)

@@ -1,6 +1,5 @@
 package id.cavannus.thetaleofwayang.core.data.source.local
 
-import android.util.Log
 import id.cavannus.thetaleofwayang.core.data.source.local.entity.SearchWayangEntity
 import id.cavannus.thetaleofwayang.core.data.source.local.entity.StoriesEntity
 import id.cavannus.thetaleofwayang.core.data.source.local.entity.WayangEntity
@@ -20,6 +19,8 @@ class LocalDataSource(private val wayangDao: WayangDao) {
             wayangDao.insertStories(storiesList)
 
     fun getFavoriteWayang(): Flow<List<WayangEntity>> = wayangDao.getFavoriteWayang()
+
+    fun getFavoriteWayangByName(name: String): Flow<WayangEntity> = wayangDao.getFavoriteWayangByName(name)
 
     fun setFavoriteWayang(wayang: WayangEntity, newState: Boolean) {
         wayang.isFavorite = newState

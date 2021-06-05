@@ -4,8 +4,8 @@ import androidx.room.Room
 import id.cavannus.thetaleofwayang.core.data.WayangRepository
 import id.cavannus.thetaleofwayang.core.data.source.local.LocalDataSource
 import id.cavannus.thetaleofwayang.core.data.source.local.room.WayangDatabase
-import id.cavannus.thetaleofwayang.core.data.source.remote.network.ApiService
 import id.cavannus.thetaleofwayang.core.data.source.remote.RemoteDataSource
+import id.cavannus.thetaleofwayang.core.data.source.remote.network.ApiService
 import id.cavannus.thetaleofwayang.core.domain.repository.IWayangRepository
 import id.cavannus.thetaleofwayang.core.utils.AppExecutors
 import okhttp3.OkHttpClient

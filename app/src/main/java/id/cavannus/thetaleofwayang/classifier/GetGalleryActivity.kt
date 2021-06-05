@@ -6,13 +6,11 @@ import android.content.pm.ActivityInfo
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.SystemClock
 import android.provider.MediaStore
 import android.widget.Toast
-import androidx.appcompat.app.ActionBar
-import id.cavannus.thetaleofwayang.R
+import androidx.appcompat.app.AppCompatActivity
 import id.cavannus.thetaleofwayang.databinding.ActivityGetGalleryBinding
 import java.io.IOException
 

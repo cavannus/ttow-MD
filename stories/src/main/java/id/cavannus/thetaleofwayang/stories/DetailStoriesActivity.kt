@@ -1,11 +1,10 @@
 package id.cavannus.thetaleofwayang.stories
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import id.cavannus.thetaleofwayang.core.domain.model.Stories
 import id.cavannus.thetaleofwayang.stories.databinding.ActivityDetailStoriesBinding
-import org.koin.android.viewmodel.ext.android.viewModel
 
 class DetailStoriesActivity : AppCompatActivity() {
     companion object {
