@@ -3,10 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingStart="16dp"
-    android:paddingEnd="16dp"
-    android:paddingBottom="8dp"
-    android:paddingTop="8dp"
+    android:padding="16dp"
     android:gravity="center_vertical"
     android:background="@drawable/custom_ripple">
 
@@ -35,6 +32,7 @@
         android:text="@string/text_primary"
         android:textSize="16sp"
         android:textStyle="bold"
+        android:textColor="@color/ColorPrimary"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_story_subtitle"
         app:layout_constraintStart_toStartOf="parent" />

@@ -36,4 +36,5 @@
 
     <string name="rem_fav">%s telah dihapus dari favorit!</string>
     <string name="add_fav">%s telah ditambahkan ke favorit!</string>
+    <string name="scan_wayang">Klasifikasi Wayang</string>
 </resources>
