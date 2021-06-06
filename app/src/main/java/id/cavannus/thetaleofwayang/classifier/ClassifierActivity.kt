@@ -18,8 +18,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import id.cavannus.thetaleofwayang.R
 import id.cavannus.thetaleofwayang.databinding.ActivityClassifierBinding
-import id.cavannus.thetaleofwayang.databinding.ActivityGetCameraBinding
-import id.cavannus.thetaleofwayang.databinding.ActivityGetGalleryBinding
 import java.io.IOException
 
 class ClassifierActivity : AppCompatActivity() {

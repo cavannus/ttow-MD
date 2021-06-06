@@ -34,13 +34,21 @@
             android:textSize="20sp" />
     </androidx.appcompat.widget.Toolbar>
 
-    <ProgressBar
-        android:id="@+id/detail_progressBar"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/detail_progress_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="?attr/actionBarSize"
-        android:padding="150dp"
-        android:visibility="gone" />
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateTint="@color/ColorPrimaryDark"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/parent_layout"
@@ -69,12 +77,12 @@
                     android:contentDescription="@string/image_description"
                     android:adjustViewBounds="true"
                     android:scaleType="centerInside"
+                    android:src="@drawable/img_placeholder"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.492"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.103"
-                    tools:src="@android:color/darker_gray" />
+                    app:layout_constraintVertical_bias="0.103" />
 
                 <TextView
                     android:id="@+id/wayang_name"
@@ -94,26 +102,6 @@
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/img_item"
                     app:layout_constraintTop_toBottomOf="@+id/img_item" />
-
-<!--                <TextView-->
-<!--                    android:id="@+id/tv_company_detail"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_below="@id/tv_watak"-->
-<!--                    android:layout_marginStart="8dp"-->
-<!--                    android:layout_marginTop="4dp"-->
-<!--                    android:layout_marginEnd="8dp"-->
-<!--                    android:drawablePadding="8dp"-->
-<!--                    android:fontFamily="@font/poppins"-->
-<!--                    android:gravity="center"-->
-<!--                    android:text="@string/detail_desc"-->
-<!--                    android:textColor="@color/ColorPrimary"-->
-<!--                    android:textSize="12sp"-->
-<!--                    app:layout_constraintBottom_toTopOf="@+id/tv_watak"-->
-<!--                    app:layout_constraintEnd_toEndOf="@+id/wayang_name"-->
-<!--                    app:layout_constraintHorizontal_bias="1.0"-->
-<!--                    app:layout_constraintStart_toStartOf="@+id/wayang_name"-->
-<!--                    app:layout_constraintTop_toBottomOf="@+id/wayang_name" />-->
 
                 <TextView
                     android:id="@+id/tv_watak"
@@ -163,20 +151,5 @@
             android:contentDescription="@string/floating_button" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
 </LinearLayout>

@@ -10,8 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import id.cavannus.thetaleofwayang.R
 import id.cavannus.thetaleofwayang.classifier.ClassifierActivity
-import id.cavannus.thetaleofwayang.classifier.GetCameraActivity
-import id.cavannus.thetaleofwayang.classifier.GetGalleryActivity
 import id.cavannus.thetaleofwayang.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment(), View.OnClickListener {

@@ -11,7 +11,7 @@ interface IWayangRepository {
 
     fun getFavoriteWayang(): Flow<List<Wayang>>
 
-    fun getFavoriteWayangByName(name: String): Flow<Wayang>
+    fun getFavoriteWayangByName(name: String): Flow<Wayang?>
 
     fun setFavoriteWayang(wayang: Wayang, state: Boolean)
 
