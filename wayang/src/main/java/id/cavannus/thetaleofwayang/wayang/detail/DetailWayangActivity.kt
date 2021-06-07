@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import id.cavannus.thetaleofwayang.R
+import id.cavannus.thetaleofwayang.core.R.drawable.img_placeholder
 import id.cavannus.thetaleofwayang.core.data.Resource
 import id.cavannus.thetaleofwayang.core.domain.model.Wayang
 import id.cavannus.thetaleofwayang.core.ui.StoriesAdapter
@@ -69,6 +70,13 @@ class DetailWayangActivity : AppCompatActivity() {
                     }
                 }
             }
+
+            var statusFavorite = detailWayang.isFavorite
+            binding.fab.setOnClickListener {
+                statusFavorite = !statusFavorite
+                detailWayangViewModel.setFavoriteWayang(detailWayang, statusFavorite)
+                setStatusFavorite(statusFavorite, detailWayang)
+            }
         }
 
         with(binding.rvStories) {
@@ -95,17 +103,11 @@ class DetailWayangActivity : AppCompatActivity() {
             binding.tvWatak.text = detailWayang.watak_wayang
             Glide.with(this@DetailWayangActivity)
                 .load(detailWayang.foto_wayang)
-                .placeholder(R.drawable.img_placeholder)
+                .placeholder(img_placeholder)
                 .override(500)
                 .into(binding.imgItem)
 
-            var statusFavorite = detailWayang.isFavorite
             checkStatusFavorite(detailWayang.isFavorite)
-            binding.fab.setOnClickListener {
-                statusFavorite = !statusFavorite
-                detailWayangViewModel.setFavoriteWayang(detailWayang, statusFavorite)
-                setStatusFavorite(statusFavorite, detailWayang)
-            }
         }
     }
 
