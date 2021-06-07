@@ -79,7 +79,7 @@ class WayangRepository(
         return localDataSource.getFavoriteWayang().map { DataMapper.mapEntitiesToDomain(it) }
     }
 
-    override fun getFavoriteWayangByName(name: String): Flow<Wayang> {
+    override fun getFavoriteWayangByName(name: String): Flow<Wayang?> {
         return localDataSource.getFavoriteWayangByName(name).map {
             DataMapper.mapEntitiesToDomainFavorite(it)
         }

@@ -1,4 +1,4 @@
-bagong
-gareng
-petruk
-semar
+Bagong
+Gareng
+Petruk
+Semar

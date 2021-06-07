@@ -7,7 +7,6 @@ import android.util.Log
 import org.tensorflow.lite.Interpreter
 import java.io.BufferedReader
 import java.io.FileInputStream
-import java.io.IOException
 import java.io.InputStreamReader
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
@@ -28,20 +27,15 @@ class ImageClassifier(assetManager: AssetManager, modelPath: String, labelPath: 
     private val threshold = 0.4f
 
     data class Recognition(
-            var id: String = "",
-            var title: String = "",
-            var confidence: Float = 0F,
-            val percent: Float = confidence*100
+        var id: String = "",
+        var title: String = "",
+        var confidence: Float = 0F,
+        val percent: Float = confidence*100
     )  {
         override fun toString(): String {
             return "Title = $title, Hasil Prediksi = $percent)"
         }
     }
-
-//    init {
-//        model = Interpreter(loadModelFile(assetManager, modelPath))
-//        labels = loadLabelList(assetManager, labelPath)
-//    }
 
     init {
         model = Interpreter(getModelByteBuffer(assetManager, MODEL_PATH))
@@ -78,15 +72,6 @@ class ImageClassifier(assetManager: AssetManager, modelPath: String, labelPath: 
             }
         }
 
-//        for (i in 0 until MODEL_INPUT_SIZE2) {
-//            for (j in 0 until MODEL_INPUT_SIZE2) {
-//                val pixelValue = pixelValues[pixel++]
-//                byteBuffer.putFloat((pixelValue shr 16 and 0xFF) / 255f)
-//                byteBuffer.putFloat((pixelValue shr 8 and 0xFF) / 255f)
-//                byteBuffer.putFloat((pixelValue and 0xFF) / 255f)
-//            }
-//        }
-
         model.run(byteBuffer, result)
         return parseResults(result)
     }
@@ -102,8 +87,7 @@ class ImageClassifier(assetManager: AssetManager, modelPath: String, labelPath: 
 
         return recognitions.sortedByDescending { it.probability }
     }
-
-    @Throws(IOException::class)
+    
     private fun getModelByteBuffer(assetManager: AssetManager, modelPath: String): ByteBuffer {
         val fileDescriptor = assetManager.openFd(modelPath)
         val inputStream = FileInputStream(fileDescriptor.fileDescriptor)
@@ -113,8 +97,7 @@ class ImageClassifier(assetManager: AssetManager, modelPath: String, labelPath: 
         return fileChannel.map(FileChannel.MapMode.READ_ONLY, startOffset, declaredLength)
                 .asReadOnlyBuffer()
     }
-
-    @Throws(IOException::class)
+    
     private fun getLabels(assetManager: AssetManager, labelPath: String): List<String> {
         val labels = ArrayList<String>()
         val reader = BufferedReader(InputStreamReader(assetManager.open(labelPath)))
@@ -138,6 +121,7 @@ class ImageClassifier(assetManager: AssetManager, modelPath: String, labelPath: 
         private const val MODEL_PATH = "wayang-mobilenet-v2.tflite"
     }
 
+    //get from gallery
     private fun loadModelFile(assetManager: AssetManager, modelPath: String): MappedByteBuffer {
         val fileDescriptor = assetManager.openFd(modelPath)
         val inputStream = FileInputStream(fileDescriptor.fileDescriptor)
@@ -152,7 +136,7 @@ class ImageClassifier(assetManager: AssetManager, modelPath: String, labelPath: 
 
     }
 
-    fun recognizeImage(bitmap: Bitmap): List<ClassifyFromGallery.Recognition> {
+    fun recognizeImage(bitmap: Bitmap): List<Recognition> {
         val scaledBitmap = Bitmap.createScaledBitmap(bitmap, inputsize, inputsize2, false)
         val byteBuffer = convertBitmapToByteBuffer(scaledBitmap)
         val result = Array(1) { FloatArray(labels.size) }
@@ -176,25 +160,15 @@ class ImageClassifier(assetManager: AssetManager, modelPath: String, labelPath: 
                 byteBuffer.putFloat((((`val` and 0xFF) - imagemean) / imagestd))
             }
         }
-//        for (i in 0 until inputsize2) {
-//            for (j in 0 until inputsize2) {
-//                val `val` = intValues[pixel++]
-//
-//                byteBuffer.putFloat((((`val`.shr(16)  and 0xFF) - imagemean) / imagestd))
-//                byteBuffer.putFloat((((`val`.shr(8) and 0xFF) - imagemean) / imagestd))
-//                byteBuffer.putFloat((((`val` and 0xFF) - imagemean) / imagestd))
-//            }
-//        }
         return byteBuffer
     }
 
-
-    private fun getSortedResult(labelProbArray: Array<FloatArray>): List<ClassifyFromGallery.Recognition> {
+    private fun getSortedResult(labelProbArray: Array<FloatArray>): List<Recognition> {
         Log.d("KlasifikasiDariGaleri", "List Size:(%d, %d, %d)".format(labelProbArray.size,labelProbArray[0].size,labels.size))
 
         val pq = PriorityQueue(
                 maxresults,
-                Comparator<ClassifyFromGallery.Recognition> {
+                Comparator<Recognition> {
                     (_, _, confidence1), (_, _, confidence2)
                     -> confidence1.compareTo(confidence2) * -1
                 })
@@ -203,14 +177,14 @@ class ImageClassifier(assetManager: AssetManager, modelPath: String, labelPath: 
             val confidence = labelProbArray[0][i]
             if (confidence >= threshold) {
                 pq.add(
-                        ClassifyFromGallery.Recognition("" + i,
+                        Recognition("" + i,
                                 if (labels.size > i) labels[i] else "Unknown", confidence)
                 )
             }
         }
         Log.d("KlasifikasiDariGaleri", "pqsize:(%d)".format(pq.size))
 
-        val recognitions = ArrayList<ClassifyFromGallery.Recognition>()
+        val recognitions = ArrayList<Recognition>()
         val recognitionsSize = pq.size.coerceAtMost(maxresults)
         for (i in 0 until recognitionsSize) {
             recognitions.add(pq.poll())

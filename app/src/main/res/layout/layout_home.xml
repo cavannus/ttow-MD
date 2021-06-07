@@ -15,8 +15,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="vertical"
-        android:paddingTop="80dp"
-        android:paddingBottom="80dp"
+        android:paddingTop="40dp"
+        android:paddingBottom="40dp"
         android:paddingStart="30dp"
         android:paddingEnd="30dp">
 

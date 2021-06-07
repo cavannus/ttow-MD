@@ -103,7 +103,8 @@ object DataMapper {
                 )
             }
 
-    fun mapEntitiesToDomainFavorite(input: WayangEntity): Wayang =
+    fun mapEntitiesToDomainFavorite(input: WayangEntity?): Wayang? {
+        return if (input != null) {
             Wayang(
                     id_wayang = input.id_wayang,
                     foto_wayang = input.foto_wayang,
@@ -111,4 +112,8 @@ object DataMapper {
                     watak_wayang = input.watak_wayang,
                     isFavorite = input.isFavorite
             )
+        }else{
+            null
+        }
+    }
 }

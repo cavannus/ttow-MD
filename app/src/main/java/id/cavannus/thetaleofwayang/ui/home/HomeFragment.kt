@@ -10,8 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import id.cavannus.thetaleofwayang.R
 import id.cavannus.thetaleofwayang.classifier.ClassifierActivity
-import id.cavannus.thetaleofwayang.classifier.GetCameraActivity
-import id.cavannus.thetaleofwayang.classifier.GetGalleryActivity
 import id.cavannus.thetaleofwayang.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment(), View.OnClickListener {
@@ -19,9 +17,10 @@ class HomeFragment : Fragment(), View.OnClickListener {
     private val binding get() = _binding
     private lateinit var homeViewModel: HomeViewModel
 
-    lateinit var btnCamera: Button
-    lateinit var btnGaleri: Button
-    private val mGalleryRequestCode = 2
+    private lateinit var btnScan: Button
+//    lateinit var btnCamera: Button
+//    lateinit var btnGaleri: Button
+//    private val mGalleryRequestCode = 2
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -40,8 +39,8 @@ class HomeFragment : Fragment(), View.OnClickListener {
 //	    btnCamera.setOnClickListener(this)
 //	    btnGaleri = view.findViewById(R.id.btn_gallery)
 //	    btnGaleri.setOnClickListener(this)
-        btnCamera = view.findViewById(R.id.btn_scan)
-        btnCamera.setOnClickListener(this)
+        btnScan = view.findViewById(R.id.btn_scan)
+        btnScan.setOnClickListener(this)
     }
 
     override fun onClick(v: View) {

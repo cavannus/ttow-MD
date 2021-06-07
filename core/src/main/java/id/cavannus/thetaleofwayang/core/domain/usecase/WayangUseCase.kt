@@ -9,7 +9,7 @@ interface WayangUseCase {
     fun getAllWayang(): Flow<Resource<List<Wayang>>>
     fun getAllStories(query: String): Flow<Resource<List<Stories>>>
     fun getFavoriteWayang(): Flow<List<Wayang>>
-    fun getFavoriteWayangByName(name: String): Flow<Wayang>
+    fun getFavoriteWayangByName(name: String): Flow<Wayang?>
     fun setFavoriteWayang(wayang: Wayang, state: Boolean)
     fun searchWayang(query: String): Flow<Resource<List<Wayang>>>
 }

@@ -38,8 +38,6 @@ class DetailWayangActivity : AppCompatActivity() {
 
         val detailWayang = intent.getParcelableExtra<Wayang>(EXTRA_DATA)
         val namaWayang = detailWayang?.nm_wayang
-        namaWayang?.let { Log.d("DETAIL WAYANG", it) }
-        showDetailWayang(detailWayang)
 
         val storiesAdapter = StoriesAdapter()
         storiesAdapter.onItemClick = { selectedData ->
@@ -49,17 +47,23 @@ class DetailWayangActivity : AppCompatActivity() {
         }
 
         if (namaWayang != null) {
+            detailWayangViewModel.getFavorite(namaWayang).observe(this) { wayang ->
+                if(wayang != null) {
+                    detailWayang.isFavorite = wayang.isFavorite
+                }
+            }
+
             detailWayangViewModel.getAllStories(namaWayang).observe(this) { wayang ->
                 if (wayang != null) {
-                    Log.d("DETAIL WAYANG OBSERVE", wayang.data.toString())
                     when (wayang) {
-                        is Resource.Loading<*> -> binding.progressBar.visibility = View.VISIBLE
+                        is Resource.Loading<*> -> binding.detailProgressBar.visibility = View.VISIBLE
                         is Resource.Success<*> -> {
-                            binding.progressBar.visibility = View.GONE
+                            binding.detailProgressBar.visibility = View.GONE
+                            showDetailWayang(detailWayang)
                             storiesAdapter.setData(wayang.data)
                         }
                         is Resource.Error<*> -> {
-                            binding.progressBar.visibility = View.GONE
+                            binding.detailProgressBar.visibility = View.GONE
 //                        binding.lottieError.visibility = View.VISIBLE
 //                        binding.textError.visibility = View.VISIBLE
                         }
@@ -92,14 +96,9 @@ class DetailWayangActivity : AppCompatActivity() {
             binding.tvWatak.text = detailWayang.watak_wayang
             Glide.with(this@DetailWayangActivity)
                 .load(detailWayang.foto_wayang)
+                .placeholder(R.drawable.img_placeholder)
                 .override(500)
                 .into(binding.imgItem)
-
-//            binding.detailContent.btnVideo.setOnClickListener {
-//                val video = detailWayang.strYoutube
-//                val i = Intent(Intent.ACTION_VIEW, Uri.parse(video))
-//                startActivity(i)
-//            }
 
             var statusFavorite = detailWayang.isFavorite
             checkStatusFavorite(detailWayang.isFavorite)
