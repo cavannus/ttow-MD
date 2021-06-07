@@ -98,7 +98,6 @@ class ClassifierActivity : AppCompatActivity() {
 //                val intent = Intent(Intent.ACTION_VIEW, uri)
 //                intent.putExtra("extra_data", results?.title)
 //                startActivity(intent)
-//                //startActivity(Intent(Intent.ACTION_VIEW, uri))
 //            }
         }
     }
