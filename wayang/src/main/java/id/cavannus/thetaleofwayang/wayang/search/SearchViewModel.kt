@@ -5,6 +5,9 @@ import androidx.lifecycle.asLiveData
 import id.cavannus.thetaleofwayang.core.domain.usecase.WayangUseCase
 
 class SearchViewModel(private val wayangUseCase: WayangUseCase) : ViewModel() {
-    fun searchWayang(query: String) = wayangUseCase.searchWayang(query).asLiveData()
-    fun getFavorite(name: String) = wayangUseCase.getFavoriteWayangByName(name).asLiveData()
+    fun searchWayang(query: String) =
+            wayangUseCase.searchWayang(query).asLiveData()
+    fun getFavorite(name: String) =
+            wayangUseCase.getFavoriteWayangByName(name).asLiveData()
+
 }
