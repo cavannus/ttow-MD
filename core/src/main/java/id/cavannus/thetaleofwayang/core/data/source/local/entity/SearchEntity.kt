@@ -8,8 +8,8 @@ import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-@Entity(tableName = "searchWayang")
-data class SearchWayangEntity(
+@Entity(tableName = "search_tb")
+data class SearchEntity(
 		@PrimaryKey
 		@NonNull
 		@ColumnInfo(name = "id_wayang")
@@ -23,7 +23,4 @@ data class SearchWayangEntity(
 
 		@ColumnInfo(name = "watak_wayang")
 		var watak_wayang: String,
-
-		@ColumnInfo(name = "isFavorite")
-		var isFavorite: Boolean = false
 ): Parcelable

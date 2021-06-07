@@ -1,34 +1,32 @@
 package id.cavannus.thetaleofwayang.core.data.source.local
 
-import id.cavannus.thetaleofwayang.core.data.source.local.entity.SearchWayangEntity
+import id.cavannus.thetaleofwayang.core.data.source.local.entity.FavoriteEntity
+import id.cavannus.thetaleofwayang.core.data.source.local.entity.SearchEntity
 import id.cavannus.thetaleofwayang.core.data.source.local.entity.StoriesEntity
 import id.cavannus.thetaleofwayang.core.data.source.local.entity.WayangEntity
 import id.cavannus.thetaleofwayang.core.data.source.local.room.WayangDao
 import kotlinx.coroutines.flow.Flow
 
 class LocalDataSource(private val wayangDao: WayangDao) {
-
+    //HISTORY
     fun getAllWayang(): Flow<List<WayangEntity>> = wayangDao.getAllWayang()
-
-    fun getAllStories(tokoh: String): Flow<List<StoriesEntity>> = wayangDao.getAllStories(tokoh)
-
     suspend fun insertWayang(wayangList: List<WayangEntity>) =
             wayangDao.insertWayang(wayangList)
 
+    //STORIES
+    fun getAllStories(tokoh: String): Flow<List<StoriesEntity>> = wayangDao.getAllStories(tokoh)
     suspend fun insertStories(storiesList: List<StoriesEntity>) =
             wayangDao.insertStories(storiesList)
 
-    fun getFavoriteWayang(): Flow<List<WayangEntity>> = wayangDao.getFavoriteWayang()
+    //FAVORITE
+    fun getFavoriteWayang(): Flow<List<FavoriteEntity>> = wayangDao.getFavoriteWayang()
+    fun getFavoriteWayangByName(name: String): Flow<FavoriteEntity> =
+            wayangDao.getFavoriteWayangByName(name)
+    fun addFavoriteWayang(wayang: FavoriteEntity) = wayangDao.addFavoriteWayang(wayang)
+    fun delFavoriteWayang(wayang: FavoriteEntity) = wayangDao.delFavoriteWayang(wayang)
 
-    fun getFavoriteWayangByName(name: String): Flow<WayangEntity> = wayangDao.getFavoriteWayangByName(name)
-
-    fun setFavoriteWayang(wayang: WayangEntity, newState: Boolean) {
-        wayang.isFavorite = newState
-        wayangDao.updateFavoriteWayang(wayang)
-    }
-
-    fun searchWayang(query: String) : Flow<List<SearchWayangEntity>> = wayangDao.searchWayang(query)
-
-    suspend fun insertSearchWayang(wayangList: List<SearchWayangEntity>) =
-        wayangDao.insertSearchWayang(wayangList)
+    //SEARCH
+    fun searchWayang(query: String) : Flow<List<SearchEntity>> = wayangDao.searchWayang(query)
+    suspend fun insertSearchWayang(list: List<SearchEntity>) =
+        wayangDao.insertSearchWayang(list)
 }

@@ -49,7 +49,15 @@ class DetailWayangActivity : AppCompatActivity() {
         if (namaWayang != null) {
             detailWayangViewModel.getFavorite(namaWayang).observe(this) { wayang ->
                 if(wayang != null) {
-                    detailWayang.isFavorite = wayang.isFavorite
+                    checkStatusFavorite(true)
+                    binding.fab.setOnClickListener{
+                        setStatusFavorite(true, detailWayang)
+                    }
+                }else{
+                    checkStatusFavorite(false)
+                    binding.fab.setOnClickListener{
+                        setStatusFavorite(false, detailWayang)
+                    }
                 }
             }
 
@@ -69,13 +77,6 @@ class DetailWayangActivity : AppCompatActivity() {
                         }
                     }
                 }
-            }
-
-            var statusFavorite = detailWayang.isFavorite
-            binding.fab.setOnClickListener {
-                statusFavorite = !statusFavorite
-                detailWayangViewModel.setFavoriteWayang(detailWayang, statusFavorite)
-                setStatusFavorite(statusFavorite, detailWayang)
             }
         }
 
@@ -106,8 +107,6 @@ class DetailWayangActivity : AppCompatActivity() {
                 .placeholder(img_placeholder)
                 .override(500)
                 .into(binding.imgItem)
-
-            checkStatusFavorite(detailWayang.isFavorite)
         }
     }
 
@@ -119,13 +118,15 @@ class DetailWayangActivity : AppCompatActivity() {
         }
     }
 
-    private fun setStatusFavorite(statusFavorite: Boolean, detailWayang: Wayang?) {
+    private fun setStatusFavorite(statusFavorite: Boolean, detailWayang: Wayang) {
         if (statusFavorite) {
             checkStatusFavorite(statusFavorite)
-            showSnackbar(resources.getString(R.string.add_fav, detailWayang?.nm_wayang))
+            detailWayangViewModel.delFavoriteWayang(detailWayang)
+            showSnackbar(resources.getString(R.string.del_fav, detailWayang.nm_wayang))
         } else {
             checkStatusFavorite(statusFavorite)
-            showSnackbar(resources.getString(R.string.rem_fav, detailWayang?.nm_wayang))
+            detailWayangViewModel.addFavoriteWayang(detailWayang)
+            showSnackbar(resources.getString(R.string.add_fav, detailWayang.nm_wayang))
         }
     }
 

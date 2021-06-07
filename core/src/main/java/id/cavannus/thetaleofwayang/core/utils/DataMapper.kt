@@ -1,6 +1,7 @@
 package id.cavannus.thetaleofwayang.core.utils
 
-import id.cavannus.thetaleofwayang.core.data.source.local.entity.SearchWayangEntity
+import id.cavannus.thetaleofwayang.core.data.source.local.entity.FavoriteEntity
+import id.cavannus.thetaleofwayang.core.data.source.local.entity.SearchEntity
 import id.cavannus.thetaleofwayang.core.data.source.local.entity.StoriesEntity
 import id.cavannus.thetaleofwayang.core.data.source.local.entity.WayangEntity
 import id.cavannus.thetaleofwayang.core.data.source.remote.response.StoriesResponse
@@ -9,6 +10,7 @@ import id.cavannus.thetaleofwayang.core.domain.model.Stories
 import id.cavannus.thetaleofwayang.core.domain.model.Wayang
 
 object DataMapper {
+    //HISTORY
     fun mapResponsesToEntities(input: List<WayangResponse>): List<WayangEntity> {
         val wayangList = ArrayList<WayangEntity>()
         input.map {
@@ -17,7 +19,6 @@ object DataMapper {
                 foto_wayang = it.foto,
                 nm_wayang = it.nm_wayang,
                 watak_wayang = it.watak_wayang,
-                isFavorite = false
             )
             wayangList.add(wayang)
         }
@@ -31,7 +32,6 @@ object DataMapper {
                 foto_wayang = it.foto_wayang,
                 nm_wayang = it.nm_wayang,
                 watak_wayang = it.watak_wayang,
-                isFavorite = it.isFavorite
             )
         }
 
@@ -40,9 +40,9 @@ object DataMapper {
         foto_wayang = input.foto_wayang,
         nm_wayang = input.nm_wayang,
         watak_wayang = input.watak_wayang,
-        isFavorite = input.isFavorite
     )
 
+    //STORIES
     fun mapResponsesToEntitiesStory(input: List<StoriesResponse>): List<StoriesEntity> {
         val wayangList = ArrayList<StoriesEntity>()
         input.map {
@@ -77,43 +77,62 @@ object DataMapper {
 //        tokoh = input.tokoh
 //    )
 
-    fun mapResponsesToEntitiesSearch(input: List<WayangResponse>): List<SearchWayangEntity> {
-        val wayangList = ArrayList<SearchWayangEntity>()
+    //SEARCH
+    fun mapResponsesToEntitiesSearch(input: List<WayangResponse>): List<SearchEntity> {
+        val wayangList = ArrayList<SearchEntity>()
         input.map {
-            val wayang = SearchWayangEntity(
+            val wayang = SearchEntity(
                     id_wayang = it.id_wayang,
                     foto_wayang = it.foto,
                     nm_wayang = it.nm_wayang,
                     watak_wayang = it.watak_wayang,
-                    isFavorite = false
             )
             wayangList.add(wayang)
         }
         return wayangList
     }
 
-    fun mapEntitiesToDomainSearch(input: List<SearchWayangEntity>): List<Wayang> =
+    fun mapEntitiesToDomainSearch(input: List<SearchEntity>): List<Wayang> =
             input.map {
                 Wayang(
                         id_wayang = it.id_wayang,
                         foto_wayang = it.foto_wayang,
                         nm_wayang = it.nm_wayang,
                         watak_wayang = it.watak_wayang,
-                        isFavorite = it.isFavorite
                 )
             }
 
-    fun mapEntitiesToDomainFavorite(input: WayangEntity?): Wayang? {
+    //FAVORITE
+    fun mapEntitiesToDomainFavorite(input: List<FavoriteEntity>): List<Wayang> =
+        input.map {
+            Wayang(
+                id_wayang = it.id_wayang,
+                foto_wayang = it.foto_wayang,
+                nm_wayang = it.nm_wayang,
+                watak_wayang = it.watak_wayang,
+            )
+        }
+
+
+    fun mapEntitiesToDomainFavorite(input: FavoriteEntity?): Wayang? {
         return if (input != null) {
             Wayang(
                     id_wayang = input.id_wayang,
                     foto_wayang = input.foto_wayang,
                     nm_wayang = input.nm_wayang,
                     watak_wayang = input.watak_wayang,
-                    isFavorite = input.isFavorite
             )
         }else{
             null
         }
+    }
+
+    fun mapDomainToEntityFavorite(input: Wayang): FavoriteEntity {
+        return FavoriteEntity(
+                id_wayang = input.id_wayang,
+                foto_wayang = input.foto_wayang,
+                nm_wayang = input.nm_wayang,
+                watak_wayang = input.watak_wayang,
+        )
     }
 }

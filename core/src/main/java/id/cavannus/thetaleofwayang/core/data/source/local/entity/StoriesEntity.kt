@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-@Entity(tableName = "stories")
+@Entity(tableName = "stories_tb")
 data class StoriesEntity(
     @PrimaryKey
     @NonNull

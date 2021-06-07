@@ -6,7 +6,9 @@ import id.cavannus.thetaleofwayang.core.domain.model.Wayang
 import id.cavannus.thetaleofwayang.core.domain.usecase.WayangUseCase
 
 class DetailWayangViewModel(private val wayangUseCase: WayangUseCase) : ViewModel() {
-    fun setFavoriteWayang(wayang: Wayang, newStatus:Boolean) = wayangUseCase.setFavoriteWayang(wayang, newStatus)
-    fun getAllStories(query: String) = wayangUseCase.getAllStories(query).asLiveData()
     fun getFavorite(name: String) = wayangUseCase.getFavoriteWayangByName(name).asLiveData()
+    fun addFavoriteWayang(wayang: Wayang) = wayangUseCase.addFavoriteWayang(wayang)
+    fun delFavoriteWayang(wayang: Wayang) = wayangUseCase.delFavoriteWayang(wayang)
+
+    fun getAllStories(query: String) = wayangUseCase.getAllStories(query).asLiveData()
 }

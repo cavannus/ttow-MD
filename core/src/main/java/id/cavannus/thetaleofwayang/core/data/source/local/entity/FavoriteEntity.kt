@@ -8,8 +8,8 @@ import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-@Entity(tableName = "wayang_tb")
-data class WayangEntity(
+@Entity(tableName = "favorite_tb")
+data class FavoriteEntity(
     @PrimaryKey
     @NonNull
     @ColumnInfo(name = "id_wayang")

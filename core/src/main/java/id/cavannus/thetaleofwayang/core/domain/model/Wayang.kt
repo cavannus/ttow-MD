@@ -9,5 +9,4 @@ data class Wayang(
 		val foto_wayang: String,
 		val nm_wayang: String,
 		val watak_wayang: String,
-		var isFavorite: Boolean
 ) : Parcelable

@@ -188,7 +188,7 @@ class ClassifierActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode == mGalleryRequestCode) {
+        if(requestCode == mGalleryRequestCode && resultCode == RESULT_OK) {
             if (data != null) {
                 val uri = data.data
 
@@ -207,17 +207,16 @@ class ClassifierActivity : AppCompatActivity() {
             }
         } else {
             Toast.makeText(this, "Unrecognized request code", Toast.LENGTH_LONG).show()
-
         }
     }
 
-    private fun scaleImage(bitmap: Bitmap?): Bitmap {
-        val orignalWidth = bitmap!!.width
+    private fun scaleImage(bitmap: Bitmap): Bitmap {
+        val originalWidth = bitmap.width
         val originalHeight = bitmap.height
-        val scaleWidth = mInputSize.toFloat() / orignalWidth
+        val scaleWidth = mInputSize.toFloat() / originalWidth
         val scaleHeight = mInputSize2.toFloat() / originalHeight
         val matrix = Matrix()
         matrix.postScale(scaleWidth, scaleHeight)
-        return Bitmap.createBitmap(bitmap, 0, 0, orignalWidth, originalHeight, matrix, true)
+        return Bitmap.createBitmap(bitmap, 0, 0, originalWidth, originalHeight, matrix, true)
     }
 }
