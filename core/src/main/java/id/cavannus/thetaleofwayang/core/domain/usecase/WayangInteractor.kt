@@ -8,16 +8,15 @@ import kotlinx.coroutines.flow.Flow
 class WayangInteractor(private val wayangRepository: IWayangRepository): WayangUseCase {
     //HISTORY
     override fun getAllWayang() = wayangRepository.getAllWayang()
-    override fun getWayangByName(query: String): Flow<Resource<Wayang>> =
+    override fun getWayangByName(query: String): Flow<Resource<List<Wayang>>> =
             wayangRepository.getWayangByName(query)
-    override fun addWayangByName(wayang: Wayang) = wayangRepository.addWayangByname(wayang)
 
     //STORIES
     override fun getAllStories(query: String) = wayangRepository.getAllStories(query)
 
     //FAVORITE
     override fun getFavoriteWayang() = wayangRepository.getFavoriteWayang()
-    override fun getFavoriteWayangByName(name: String): Flow<Wayang?> =
+    override fun getFavoriteWayangByName(name: String): Flow<List<Wayang>> =
             wayangRepository.getFavoriteWayangByName(name)
     override fun addFavoriteWayang(wayang: Wayang) = wayangRepository.addFavoriteWayang(wayang)
     override fun delFavoriteWayang(wayang: Wayang) = wayangRepository.delFavoriteWayang(wayang)

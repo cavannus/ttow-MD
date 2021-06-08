@@ -37,31 +37,26 @@ class WayangRepository(
             }
         }.asFlow()
 
-    override fun getWayangByName(query: String): Flow<Resource<Wayang>> =
-        object : NetworkBoundResource<Wayang, WayangResponse>() {
-            override fun loadFromDB(): Flow<Wayang> {
-                return localDataSource.getWayangByName(query).map {
+    override fun getWayangByName(query: String): Flow<Resource<List<Wayang>>> =
+        object : NetworkBoundResource<List<Wayang>, List<WayangResponse>>() {
+            override fun loadFromDB(): Flow<List<Wayang>> {
+                return localDataSource.getWayangByName(query).map{
                     DataMapper.mapEntitiesToDomainByName(it)
                 }
             }
 
-            override fun shouldFetch(data: Wayang?): Boolean =
-               data?.nm_wayang?.isEmpty() == true || data?.nm_wayang == null
+            override fun shouldFetch(data: List<Wayang>?): Boolean =
+                    data == null || data.isEmpty()
 
-            override suspend fun createCall(): Flow<ApiResponse<WayangResponse>> =
-                remoteDataSource.getWayangByName(query)
-
-            override suspend fun saveCallResult(data: WayangResponse) {
-                val wayang = DataMapper.mapResponsesToEntitiesByName(data)
-                localDataSource.addWayang(wayang)
+            override suspend fun createCall(): Flow<ApiResponse<List<WayangResponse>>> {
+                return remoteDataSource.searchWayang(query)
             }
 
+            override suspend fun saveCallResult(data: List<WayangResponse>) {
+                val wayang = DataMapper.mapResponsesToEntitiesByName(data)
+                localDataSource.insertWayang(wayang)
+            }
         }.asFlow()
-
-    override fun addWayangByname(wayang: Wayang) {
-        val wayangEntity = DataMapper.mapDomainToEntititesByName(wayang)
-        appExecutors.diskIO().execute { localDataSource.addWayang(wayangEntity) }
-    }
 
     //STORIES
     override fun getAllStories(query: String): Flow<Resource<List<Stories>>> =
@@ -111,9 +106,9 @@ class WayangRepository(
         }
     }
 
-    override fun getFavoriteWayangByName(name: String): Flow<Wayang?> {
+    override fun getFavoriteWayangByName(name: String): Flow<List<Wayang>> {
         return localDataSource.getFavoriteWayangByName(name).map {
-            DataMapper.mapEntitiesToDomainFavorite(it)
+            DataMapper.mapEntitiesToDomainFavoriteList(it)
         }
     }
 

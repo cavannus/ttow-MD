@@ -17,10 +17,7 @@ interface WayangDao {
     suspend fun insertWayang(wayang: List<WayangEntity>)
 
     @Query("SELECT * FROM wayang_tb WHERE nm_wayang LIKE :name")
-    fun getWayangByName(name: String): Flow<WayangEntity>
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addWayang(wayang: WayangEntity)
+    fun getWayangByName(name: String): Flow<List<WayangEntity>>
 
     //STORIES
     @Query("SELECT * FROM stories_tb WHERE tokoh LIKE :tokoh")
@@ -34,7 +31,7 @@ interface WayangDao {
     fun getFavoriteWayang(): Flow<List<FavoriteEntity>>
 
     @Query("SELECT * FROM favorite_tb WHERE nm_wayang LIKE :name")
-    fun getFavoriteWayangByName(name: String): Flow<FavoriteEntity>
+    fun getFavoriteWayangByName(name: String): Flow<List<FavoriteEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addFavoriteWayang(wayang: FavoriteEntity)

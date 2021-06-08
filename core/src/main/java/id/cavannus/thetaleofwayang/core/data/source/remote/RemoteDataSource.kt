@@ -29,23 +29,6 @@ class RemoteDataSource(private val apiService: ApiService) {
         }.flowOn(Dispatchers.IO)
     }
 
-    suspend fun getWayangByName(query: String): Flow<ApiResponse<WayangResponse>> {
-        return flow {
-            try{
-                val response = apiService.getWayangByName(query)
-                val data = response.nm_wayang
-                if(data.isNotEmpty()){
-                    emit(ApiResponse.Success(response))
-                }else{
-                    emit(ApiResponse.Empty)
-                }
-            }catch (e: Exception){
-                emit(ApiResponse.Error(e.toString()))
-                Log.e("RemoteDataSource", e.toString())
-            }
-        }.flowOn(Dispatchers.IO)
-    }
-
     //STORIES
     suspend fun getAllStories(query: String): Flow<ApiResponse<List<StoriesResponse>>> {
         return flow {

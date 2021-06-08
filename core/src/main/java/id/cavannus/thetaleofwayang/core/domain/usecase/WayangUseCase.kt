@@ -8,15 +8,14 @@ import kotlinx.coroutines.flow.Flow
 interface WayangUseCase {
     //HISTORY
     fun getAllWayang(): Flow<Resource<List<Wayang>>>
-    fun getWayangByName(query: String): Flow<Resource<Wayang>>
-    fun addWayangByName(wayang: Wayang)
+    fun getWayangByName(query: String): Flow<Resource<List<Wayang>>>
 
     //STORIES
     fun getAllStories(query: String): Flow<Resource<List<Stories>>>
 
     //FAVORITE
     fun getFavoriteWayang(): Flow<List<Wayang>>
-    fun getFavoriteWayangByName(name: String): Flow<Wayang?>
+    fun getFavoriteWayangByName(name: String): Flow<List<Wayang>>
     fun addFavoriteWayang(wayang: Wayang)
     fun delFavoriteWayang(wayang: Wayang)
 

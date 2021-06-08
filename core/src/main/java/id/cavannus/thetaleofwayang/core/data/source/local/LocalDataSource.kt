@@ -10,11 +10,9 @@ import kotlinx.coroutines.flow.Flow
 class LocalDataSource(private val wayangDao: WayangDao) {
     //HISTORY
     fun getAllWayang(): Flow<List<WayangEntity>> = wayangDao.getAllWayang()
-    fun getWayangByName(name: String): Flow<WayangEntity> = wayangDao.getWayangByName(name)
+    fun getWayangByName(name: String): Flow<List<WayangEntity>> = wayangDao.getWayangByName(name)
     suspend fun insertWayang(wayangList: List<WayangEntity>) =
             wayangDao.insertWayang(wayangList)
-    fun addWayang(wayang: WayangEntity) =
-            wayangDao.addWayang(wayang)
 
     //STORIES
     fun getAllStories(tokoh: String): Flow<List<StoriesEntity>> = wayangDao.getAllStories(tokoh)
@@ -23,7 +21,7 @@ class LocalDataSource(private val wayangDao: WayangDao) {
 
     //FAVORITE
     fun getFavoriteWayang(): Flow<List<FavoriteEntity>> = wayangDao.getFavoriteWayang()
-    fun getFavoriteWayangByName(name: String): Flow<FavoriteEntity> =
+    fun getFavoriteWayangByName(name: String): Flow<List<FavoriteEntity>> =
             wayangDao.getFavoriteWayangByName(name)
     fun addFavoriteWayang(wayang: FavoriteEntity) = wayangDao.addFavoriteWayang(wayang)
     fun delFavoriteWayang(wayang: FavoriteEntity) = wayangDao.delFavoriteWayang(wayang)

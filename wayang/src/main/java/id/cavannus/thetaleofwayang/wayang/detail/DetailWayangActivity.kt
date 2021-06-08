@@ -49,8 +49,8 @@ class DetailWayangActivity : AppCompatActivity() {
         }
 
         if (namaWayang != null) {
-            detailWayangViewModel.getFavorite(namaWayang).observe(this) { wayang ->
-                if(wayang != null) {
+            detailWayangViewModel.getFavoriteByName(namaWayang).observe(this) { wayang ->
+                if(wayang.isNotEmpty()) {
                     checkStatusFavorite(true)
                     binding.fab.setOnClickListener{
                         detailWayang?.let { it1 -> setStatusFavorite(true, it1) }
@@ -79,19 +79,18 @@ class DetailWayangActivity : AppCompatActivity() {
                 }
             }
         }else{
-            val wayangResult = Uri.parse(intent.extras?.getString("wayang_result")).toString()
+            val wayangNameFromIntent = Uri.parse(intent.extras?.getString("wayang_result")).toString()
+            var wayangResult: Wayang? = null
 
-            val regex = """[a-zA-Z]*""".toRegex()
-            val wayangResultFiltered = regex.find(wayangResult)?.value
-
-            if(wayangResultFiltered?.isNotEmpty() == true){
-                detailWayangViewModel.getWayangByName(wayangResultFiltered)
+            if(wayangNameFromIntent.isNotEmpty()){
+                detailWayangViewModel.getWayangByName(wayangNameFromIntent)
                         .observe(this){ wayang ->
                                 if (wayang != null){
                                     when(wayang) {
                                         is Resource.Loading -> binding.detailProgressBar.visibility = View.VISIBLE
                                         is Resource.Success -> {
-                                            showDetailWayang(wayang.data)
+                                            showDetailWayang(wayang.data?.get(0))
+                                            wayangResult = wayang.data?.get(0)
                                         }
                                         is Resource.Error -> {
                                             binding.detailProgressBar.visibility = View.GONE
@@ -100,23 +99,23 @@ class DetailWayangActivity : AppCompatActivity() {
                             }
                         }
 
-                detailWayangViewModel.getFavorite(wayangResultFiltered).observe(this) { wayang ->
-                    if(wayang != null) {
+                detailWayangViewModel.getFavoriteByName(wayangNameFromIntent).observe(this) { wayangFav ->
+                    if(wayangFav.isNotEmpty()) {
                         checkStatusFavorite(true)
                         binding.fab.setOnClickListener{
-                            detailWayang?.let { it1 -> setStatusFavorite(true, it1) }
+                            setStatusFavorite(true, wayangFav[0])
                         }
                     }else{
                         checkStatusFavorite(false)
                         binding.fab.setOnClickListener{
-                            detailWayang?.let {
+                            wayangResult?.let {
                                 it1 -> setStatusFavorite(false, it1)
                             }
                         }
                     }
                 }
 
-                detailWayangViewModel.getAllStories(wayangResultFiltered).observe(this) { wayang ->
+                detailWayangViewModel.getAllStories(wayangNameFromIntent).observe(this) { wayang ->
                     if (wayang != null) {
                         when (wayang) {
                             is Resource.Loading<*> -> binding.detailProgressBar.visibility = View.VISIBLE

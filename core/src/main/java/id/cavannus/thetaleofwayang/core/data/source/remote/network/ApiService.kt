@@ -10,10 +10,10 @@ interface ApiService {
     @GET("index")
     suspend fun getList(): ListWayangResponse
 
-    @GET("getwayang.php")
-    suspend fun getWayangByName(
-            @Query("nm") nm: String
-    ): WayangResponse
+//    @GET("getwayang.php")
+//    suspend fun getWayangByName(
+//            @Query("nm") nm: String
+//    ): WayangResponse
 
     @GET("getcerita.php")
     suspend fun getListStories(
