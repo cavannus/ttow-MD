@@ -13,6 +13,7 @@ import android.os.AsyncTask
 import android.os.Bundle
 import android.os.SystemClock
 import android.provider.MediaStore
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -84,21 +85,22 @@ class ClassifierActivity : AppCompatActivity() {
             //val waktu = lastProcessingTimeMs.toString()//konversi ke string
             //binding.delaytime.text = "$waktu ms "
 
-//            binding.btnDetailWayang.setOnClickListener {
-////                val intent = Intent(this, DetailWayangActivity::class.java)
-////                intent.putExtra(DetailWayangActivity.EXTRA_DATA, results?.title)
-////                startActivity(intent)
+            binding.btnDetailWayang.setOnClickListener {
+//               val intent = Intent(this, DetailWayangActivity::class.java)
+//               intent.putExtra(DetailWayangActivity.EXTRA_DATA, results?.title)
+//               startActivity(intent)
 //
-////                val detailClass = Class.forName(".wayang.detail.DetailWayangActivity")
-////                val intent = Intent(this, detailClass::class.java)
-////                intent.putExtra("extra_data", results?.title)
-////                startActivity(intent)
-//
-//                val uri = Uri.parse("thetaleofwayang://wayang")
-//                val intent = Intent(Intent.ACTION_VIEW, uri)
-//                intent.putExtra("extra_data", results?.title)
+//               val detailClass = Class.forName(".wayang.detail.DetailWayangActivity")
+//               val intent = Intent(this, detailClass::class.java)
+//               intent.putExtra("extra_data", results?.title)
 //                startActivity(intent)
-//            }
+
+                Log.d("CLASSIFIER ACTIVITY", "clicked")
+                val uri = Uri.parse("thetaleofwayang://detail")
+                val intent = Intent(Intent.ACTION_VIEW, uri)
+                intent.putExtra("wayang_result", results?.title)
+                startActivity(intent)
+           }
         }
     }
 
@@ -141,6 +143,14 @@ class ClassifierActivity : AppCompatActivity() {
                     binding.cvResultCamera.visibility = View.VISIBLE
                     resultbar.text = txt.toString()
                     //processtime.text = "$waktu ms "
+
+                    binding.btnDetail.setOnClickListener {
+                        Log.d("CLASSIFIER ACTIVITY", "clicked")
+                        val uri = Uri.parse("thetaleofwayang://detail")
+                        val intent = Intent(Intent.ACTION_VIEW, uri)
+                        intent.putExtra("wayang_result", txt.toString())
+                        startActivity(intent)
+                    }
                 }
             }
         }

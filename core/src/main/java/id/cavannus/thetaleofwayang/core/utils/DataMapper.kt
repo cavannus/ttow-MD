@@ -35,12 +35,29 @@ object DataMapper {
             )
         }
 
-    fun mapDomainToEntity(input: Wayang) = WayangEntity(
-        id_wayang = input.id_wayang,
-        foto_wayang = input.foto_wayang,
-        nm_wayang = input.nm_wayang,
-        watak_wayang = input.watak_wayang,
-    )
+    fun mapResponsesToEntitiesByName(input: WayangResponse): WayangEntity =
+            WayangEntity(
+                    id_wayang = input.id_wayang,
+                    foto_wayang = input.foto,
+                    nm_wayang = input.nm_wayang,
+                    watak_wayang = input.watak_wayang,
+            )
+
+    fun mapEntitiesToDomainByName(input: WayangEntity): Wayang =
+            Wayang(
+                    id_wayang = input.id_wayang,
+                    foto_wayang = input.foto_wayang,
+                    nm_wayang = input.nm_wayang,
+                    watak_wayang = input.watak_wayang,
+            )
+
+    fun mapDomainToEntititesByName(input: Wayang): WayangEntity =
+            WayangEntity(
+                    id_wayang = input.id_wayang,
+                    foto_wayang = input.foto_wayang,
+                    nm_wayang = input.nm_wayang,
+                    watak_wayang = input.watak_wayang,
+            )
 
     //STORIES
     fun mapResponsesToEntitiesStory(input: List<StoriesResponse>): List<StoriesEntity> {
@@ -103,7 +120,7 @@ object DataMapper {
             }
 
     //FAVORITE
-    fun mapEntitiesToDomainFavorite(input: List<FavoriteEntity>): List<Wayang> =
+    fun mapEntitiesToDomainFavoriteList(input: List<FavoriteEntity>): List<Wayang> =
         input.map {
             Wayang(
                 id_wayang = it.id_wayang,
@@ -127,7 +144,7 @@ object DataMapper {
         }
     }
 
-    fun mapDomainToEntityFavorite(input: Wayang): FavoriteEntity {
+    fun mapDomainToEntitiesFavorite(input: Wayang): FavoriteEntity {
         return FavoriteEntity(
                 id_wayang = input.id_wayang,
                 foto_wayang = input.foto_wayang,

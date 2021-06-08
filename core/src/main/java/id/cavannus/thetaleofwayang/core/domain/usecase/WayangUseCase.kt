@@ -8,6 +8,8 @@ import kotlinx.coroutines.flow.Flow
 interface WayangUseCase {
     //HISTORY
     fun getAllWayang(): Flow<Resource<List<Wayang>>>
+    fun getWayangByName(query: String): Flow<Resource<Wayang>>
+    fun addWayangByName(wayang: Wayang)
 
     //STORIES
     fun getAllStories(query: String): Flow<Resource<List<Stories>>>

@@ -1,7 +1,6 @@
 package id.cavannus.thetaleofwayang.core.data
 
 import id.cavannus.thetaleofwayang.core.data.source.local.LocalDataSource
-import id.cavannus.thetaleofwayang.core.data.source.local.entity.FavoriteEntity
 import id.cavannus.thetaleofwayang.core.data.source.remote.RemoteDataSource
 import id.cavannus.thetaleofwayang.core.data.source.remote.network.ApiResponse
 import id.cavannus.thetaleofwayang.core.data.source.remote.response.StoriesResponse
@@ -37,6 +36,32 @@ class WayangRepository(
                 localDataSource.insertWayang(wayangList)
             }
         }.asFlow()
+
+    override fun getWayangByName(query: String): Flow<Resource<Wayang>> =
+        object : NetworkBoundResource<Wayang, WayangResponse>() {
+            override fun loadFromDB(): Flow<Wayang> {
+                return localDataSource.getWayangByName(query).map {
+                    DataMapper.mapEntitiesToDomainByName(it)
+                }
+            }
+
+            override fun shouldFetch(data: Wayang?): Boolean =
+               data?.nm_wayang?.isEmpty() == true || data?.nm_wayang == null
+
+            override suspend fun createCall(): Flow<ApiResponse<WayangResponse>> =
+                remoteDataSource.getWayangByName(query)
+
+            override suspend fun saveCallResult(data: WayangResponse) {
+                val wayang = DataMapper.mapResponsesToEntitiesByName(data)
+                localDataSource.addWayang(wayang)
+            }
+
+        }.asFlow()
+
+    override fun addWayangByname(wayang: Wayang) {
+        val wayangEntity = DataMapper.mapDomainToEntititesByName(wayang)
+        appExecutors.diskIO().execute { localDataSource.addWayang(wayangEntity) }
+    }
 
     //STORIES
     override fun getAllStories(query: String): Flow<Resource<List<Stories>>> =
@@ -82,7 +107,7 @@ class WayangRepository(
     //FAVORITE
     override fun getFavoriteWayang(): Flow<List<Wayang>> {
         return localDataSource.getFavoriteWayang().map {
-            DataMapper.mapEntitiesToDomainFavorite(it)
+            DataMapper.mapEntitiesToDomainFavoriteList(it)
         }
     }
 
@@ -93,12 +118,12 @@ class WayangRepository(
     }
 
     override fun addFavoriteWayang(wayang: Wayang) {
-        val wayangEntity = DataMapper.mapDomainToEntityFavorite(wayang)
+        val wayangEntity = DataMapper.mapDomainToEntitiesFavorite(wayang)
         appExecutors.diskIO().execute { localDataSource.addFavoriteWayang(wayangEntity) }
     }
 
     override fun delFavoriteWayang(wayang: Wayang) {
-        val wayangEntity = DataMapper.mapDomainToEntityFavorite(wayang)
+        val wayangEntity = DataMapper.mapDomainToEntitiesFavorite(wayang)
         appExecutors.diskIO().execute { localDataSource.delFavoriteWayang(wayangEntity) }
     }
 }

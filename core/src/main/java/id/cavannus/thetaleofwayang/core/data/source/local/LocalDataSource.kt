@@ -10,8 +10,11 @@ import kotlinx.coroutines.flow.Flow
 class LocalDataSource(private val wayangDao: WayangDao) {
     //HISTORY
     fun getAllWayang(): Flow<List<WayangEntity>> = wayangDao.getAllWayang()
+    fun getWayangByName(name: String): Flow<WayangEntity> = wayangDao.getWayangByName(name)
     suspend fun insertWayang(wayangList: List<WayangEntity>) =
             wayangDao.insertWayang(wayangList)
+    fun addWayang(wayang: WayangEntity) =
+            wayangDao.addWayang(wayang)
 
     //STORIES
     fun getAllStories(tokoh: String): Flow<List<StoriesEntity>> = wayangDao.getAllStories(tokoh)

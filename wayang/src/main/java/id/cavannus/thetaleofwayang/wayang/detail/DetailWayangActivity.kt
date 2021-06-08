@@ -1,7 +1,9 @@
 package id.cavannus.thetaleofwayang.wayang.detail
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -23,6 +25,7 @@ class DetailWayangActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_DATA = "extra_data"
+        private var detailWayang: Wayang? = null
     }
 
     private val detailWayangViewModel: DetailWayangViewModel by viewModel()
@@ -35,8 +38,8 @@ class DetailWayangActivity : AppCompatActivity() {
 
         binding = ActivityDetailWayangBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val detailWayang = intent.getParcelableExtra<Wayang>(EXTRA_DATA)
+        
+        detailWayang = intent.getParcelableExtra(EXTRA_DATA)
         val namaWayang = detailWayang?.nm_wayang
 
         val storiesAdapter = StoriesAdapter()
@@ -51,12 +54,12 @@ class DetailWayangActivity : AppCompatActivity() {
                 if(wayang != null) {
                     checkStatusFavorite(true)
                     binding.fab.setOnClickListener{
-                        setStatusFavorite(true, detailWayang)
+                        detailWayang?.let { it1 -> setStatusFavorite(true, it1) }
                     }
                 }else{
                     checkStatusFavorite(false)
                     binding.fab.setOnClickListener{
-                        setStatusFavorite(false, detailWayang)
+                        detailWayang?.let { it1 -> setStatusFavorite(false, it1) }
                     }
                 }
             }
@@ -78,7 +81,63 @@ class DetailWayangActivity : AppCompatActivity() {
                     }
                 }
             }
+        }else{
+            val wayangResult = Uri.parse(intent.extras?.getString("wayang_result")).toString()
+
+            val regex = """[a-zA-Z]*""".toRegex()
+            val wayangResultFiltered = regex.find(wayangResult)?.value
+
+            if(wayangResultFiltered?.isNotEmpty() == true){
+                detailWayangViewModel.getWayangByName(wayangResultFiltered)
+                        .observe(this){ wayang ->
+                                if (wayang != null){
+                                    when(wayang) {
+                                        is Resource.Loading -> binding.detailProgressBar.visibility = View.VISIBLE
+                                        is Resource.Success -> {
+                                            showDetailWayang(wayang.data)
+                                        }
+                                        is Resource.Error -> {
+                                            binding.detailProgressBar.visibility = View.GONE
+                                    }
+                                }
+                            }
+                        }
+
+                detailWayangViewModel.getFavorite(wayangResultFiltered).observe(this) { wayang ->
+                    if(wayang != null) {
+                        checkStatusFavorite(true)
+                        binding.fab.setOnClickListener{
+                            detailWayang?.let { it1 -> setStatusFavorite(true, it1) }
+                        }
+                    }else{
+                        checkStatusFavorite(false)
+                        binding.fab.setOnClickListener{
+                            detailWayang?.let {
+                                it1 -> setStatusFavorite(false, it1)
+                            }
+                        }
+                    }
+                }
+
+                detailWayangViewModel.getAllStories(wayangResultFiltered).observe(this) { wayang ->
+                    if (wayang != null) {
+                        when (wayang) {
+                            is Resource.Loading<*> -> binding.detailProgressBar.visibility = View.VISIBLE
+                            is Resource.Success<*> -> {
+                                binding.detailProgressBar.visibility = View.GONE
+                                storiesAdapter.setData(wayang.data)
+                            }
+                            is Resource.Error<*> -> {
+                                binding.detailProgressBar.visibility = View.GONE
+    //                        binding.lottieError.visibility = View.VISIBLE
+    //                        binding.textError.visibility = View.VISIBLE
+                            }
+                        }
+                    }
+                }
+            }
         }
+            
 
         with(binding.rvStories) {
             this.layoutManager = LinearLayoutManager(context)
