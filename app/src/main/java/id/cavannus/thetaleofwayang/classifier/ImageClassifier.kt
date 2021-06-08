@@ -17,6 +17,8 @@ import java.util.*
 class ImageClassifier(assetManager: AssetManager, modelPath: String, labelPath: String, inputSize: Int, inputSize2: Int) {
     private val labels: List<String>
     private val model: Interpreter
+    private var interpreter: Interpreter
+    private var labellist: List<String>
 
     private val inputsize: Int = inputSize
     private val inputsize2: Int = inputSize2
@@ -40,6 +42,11 @@ class ImageClassifier(assetManager: AssetManager, modelPath: String, labelPath: 
     init {
         model = Interpreter(getModelByteBuffer(assetManager, MODEL_PATH))
         labels = getLabels(assetManager, LABELS_PATH)
+    }
+
+    init {
+        interpreter = Interpreter(loadModelFile(assetManager, modelPath))
+        labellist = loadLabelList(assetManager, labelPath)
     }
 
     fun recognize(data: ByteArray): List<Detection> {
@@ -110,18 +117,16 @@ class ImageClassifier(assetManager: AssetManager, modelPath: String, labelPath: 
     }
 
     companion object {
-        private const val BATCH_SIZE = 1 // process only 1 image at a time
-        //private const val MODEL_INPUT_SIZE = 224 // 224x224
-        private const val MODEL_INPUT_SIZE = 175 // 224x224
-        private const val MODEL_INPUT_SIZE2 = 225 // 224x224
-        private const val BYTES_PER_CHANNEL = 4 // float size
-        private const val PIXEL_SIZE = 3 // rgb
+        private const val BATCH_SIZE = 1
+        private const val MODEL_INPUT_SIZE = 175
+        private const val MODEL_INPUT_SIZE2 = 225
+        private const val BYTES_PER_CHANNEL = 4
+        private const val PIXEL_SIZE = 3
 
         private const val LABELS_PATH = "labels.txt"
         private const val MODEL_PATH = "wayang-mobilenet-v2.tflite"
     }
 
-    //get from gallery
     private fun loadModelFile(assetManager: AssetManager, modelPath: String): MappedByteBuffer {
         val fileDescriptor = assetManager.openFd(modelPath)
         val inputStream = FileInputStream(fileDescriptor.fileDescriptor)

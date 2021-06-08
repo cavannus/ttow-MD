@@ -6,11 +6,4 @@ import org.koin.dsl.module
 
 val useCaseModule = module {
     factory<WayangUseCase> { WayangInteractor(get()) }
-    //factory<StoriesUseCase> { StoriesInteractor(get()) }
 }
-
-//val viewModelModule = module {
-//    //viewModel { HomeViewModel(get()) }
-//    //viewModel { GalleryViewModel(get()) }
-//    //viewModel { DetailWayangViewModel(get()) }
-//}

@@ -42,12 +42,6 @@
             android:label="@string/scan_wayang"
             android:theme="@style/Theme.TheTaleOfWayang.NoActionBar" />
         <activity
-            android:name=".classifier.GetGalleryActivity"
-            android:theme="@style/Theme.TheTaleOfWayang.NoActionBar" />
-        <activity
-            android:name=".classifier.GetCameraActivity"
-            android:theme="@style/Theme.TheTaleOfWayang.NoActionBar" />
-        <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:launchMode="singleTop"

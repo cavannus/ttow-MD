@@ -17,6 +17,7 @@ object DataMapper {
             val wayang = WayangEntity(
                 id_wayang = it.id_wayang,
                 foto_wayang = it.foto,
+                foto_wayang2 = it.foto2,
                 nm_wayang = it.nm_wayang,
                 watak_wayang = it.watak_wayang,
             )
@@ -30,6 +31,7 @@ object DataMapper {
             Wayang(
                 id_wayang = it.id_wayang,
                 foto_wayang = it.foto_wayang,
+                foto_wayang2 = it.foto_wayang2,
                 nm_wayang = it.nm_wayang,
                 watak_wayang = it.watak_wayang,
             )
@@ -39,6 +41,7 @@ object DataMapper {
             WayangEntity(
                     id_wayang = input.id_wayang,
                     foto_wayang = input.foto,
+                    foto_wayang2 = input.foto2,
                     nm_wayang = input.nm_wayang,
                     watak_wayang = input.watak_wayang,
             )
@@ -47,6 +50,7 @@ object DataMapper {
             Wayang(
                     id_wayang = input.id_wayang,
                     foto_wayang = input.foto_wayang,
+                    foto_wayang2 = input.foto_wayang2,
                     nm_wayang = input.nm_wayang,
                     watak_wayang = input.watak_wayang,
             )
@@ -55,6 +59,7 @@ object DataMapper {
             WayangEntity(
                     id_wayang = input.id_wayang,
                     foto_wayang = input.foto_wayang,
+                    foto_wayang2 = input.foto_wayang2,
                     nm_wayang = input.nm_wayang,
                     watak_wayang = input.watak_wayang,
             )
@@ -86,14 +91,6 @@ object DataMapper {
             )
         }
 
-//    fun mapEntitiesToDomainStory(input: StoriesEntity) = Stories(
-//        id_cerita = input.id_cerita,
-//        judul = input.judul,
-//        cerita = input.cerita,
-//        sumber = input.sumber,
-//        tokoh = input.tokoh
-//    )
-
     //SEARCH
     fun mapResponsesToEntitiesSearch(input: List<WayangResponse>): List<SearchEntity> {
         val wayangList = ArrayList<SearchEntity>()
@@ -101,6 +98,7 @@ object DataMapper {
             val wayang = SearchEntity(
                     id_wayang = it.id_wayang,
                     foto_wayang = it.foto,
+                    foto_wayang2 = it.foto2,
                     nm_wayang = it.nm_wayang,
                     watak_wayang = it.watak_wayang,
             )
@@ -114,6 +112,7 @@ object DataMapper {
                 Wayang(
                         id_wayang = it.id_wayang,
                         foto_wayang = it.foto_wayang,
+                        foto_wayang2 = it.foto_wayang2,
                         nm_wayang = it.nm_wayang,
                         watak_wayang = it.watak_wayang,
                 )
@@ -125,6 +124,7 @@ object DataMapper {
             Wayang(
                 id_wayang = it.id_wayang,
                 foto_wayang = it.foto_wayang,
+                foto_wayang2 = it.foto_wayang2,
                 nm_wayang = it.nm_wayang,
                 watak_wayang = it.watak_wayang,
             )
@@ -136,6 +136,7 @@ object DataMapper {
             Wayang(
                     id_wayang = input.id_wayang,
                     foto_wayang = input.foto_wayang,
+                    foto_wayang2 = input.foto_wayang2,
                     nm_wayang = input.nm_wayang,
                     watak_wayang = input.watak_wayang,
             )
@@ -148,6 +149,7 @@ object DataMapper {
         return FavoriteEntity(
                 id_wayang = input.id_wayang,
                 foto_wayang = input.foto_wayang,
+                foto_wayang2 = input.foto_wayang2,
                 nm_wayang = input.nm_wayang,
                 watak_wayang = input.watak_wayang,
         )

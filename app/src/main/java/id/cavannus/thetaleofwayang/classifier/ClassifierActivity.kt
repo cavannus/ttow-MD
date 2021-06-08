@@ -11,7 +11,6 @@ import android.graphics.Matrix
 import android.net.Uri
 import android.os.AsyncTask
 import android.os.Bundle
-import android.os.SystemClock
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
@@ -25,19 +24,15 @@ import java.io.IOException
 
 class ClassifierActivity : AppCompatActivity() {
     private lateinit var binding: ActivityClassifierBinding
-
-    private lateinit var classifier: ImageClassifier //mendeklarasikan komponen TextView resultbar yang akan dimanipulasi
+    private lateinit var classifier: ImageClassifier
     private lateinit var resultbar: TextView
-    //private lateinit var processtime: TextView
-    private var lastProcessingTimeMs: Long = 0 //deklarasi variabel lastprocessingtimems bertipe data long
-
     private lateinit var mBitmap: Bitmap
     private val mInputSize = 175
     private val mInputSize2 = 225
     private val mGalleryRequestCode = 2
-    private val mModelPath = "wayang-mobilenet-v5.tflite"
-    private val mLabelPath = "labels.txt"
     private val mSamplePath = "semar.jpg"
+    private val mModelPath = "wayang-mobilenet-v2.tflite"
+    private val mLabelPath = "labels.txt"
 
     @SuppressLint("MissingPermission", "SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,7 +46,6 @@ class ClassifierActivity : AppCompatActivity() {
         }
 
         resultbar = findViewById(R.id.result_bar)
-        //processtime = findViewById(R.id.process_time_bar)
         classifier = ImageClassifier(assets, mModelPath, mLabelPath, mInputSize, mInputSize2)
 
         if (!canUseCamera()) {
@@ -60,7 +54,6 @@ class ClassifierActivity : AppCompatActivity() {
             setupCamera()
         }
 
-        //Get dari gallery
         binding.btnGetGallery.setOnClickListener {
             val callGalleryIntent = Intent(Intent.ACTION_PICK)
             callGalleryIntent.type = "image/*"
@@ -76,25 +69,12 @@ class ClassifierActivity : AppCompatActivity() {
         }
 
         binding.btnClassifyGallery.setOnClickListener {
-            val startTime = SystemClock.uptimeMillis()//menghitung waktu awal
             val results = classifier.recognizeImage(mBitmap).firstOrNull()
-            //binding.galleryResult.text= results?.title+"\n Probabilitas: "+results?.percent+"%"
             binding.cvResult.visibility = View.VISIBLE
-            binding.galleryResult.text= results?.title+"("+results?.percent+"%)"
-            lastProcessingTimeMs = SystemClock.uptimeMillis() - startTime//menghitung lamanya proses
-            //val waktu = lastProcessingTimeMs.toString()//konversi ke string
-            //binding.delaytime.text = "$waktu ms "
+            //binding.galleryResult.text= results?.title+"("+results?.percent+"%)"
+            binding.galleryResult.text= results?.title
 
             binding.btnDetailWayang.setOnClickListener {
-//               val intent = Intent(this, DetailWayangActivity::class.java)
-//               intent.putExtra(DetailWayangActivity.EXTRA_DATA, results?.title)
-//               startActivity(intent)
-//
-//               val detailClass = Class.forName(".wayang.detail.DetailWayangActivity")
-//               val intent = Intent(this, detailClass::class.java)
-//               intent.putExtra("extra_data", results?.title)
-//                startActivity(intent)
-
                 Log.d("CLASSIFIER ACTIVITY", "clicked")
                 val uri = Uri.parse("thetaleofwayang://detail")
                 val intent = Intent(Intent.ACTION_VIEW, uri)
@@ -133,17 +113,11 @@ class ClassifierActivity : AppCompatActivity() {
     private fun setupCamera() {
         binding.camera.addPictureTakenListener {
             AsyncTask.execute {
-                //val startTime = SystemClock.uptimeMillis()//menghitung waktu awal
                 val recognitions = classifier.recognize(it.data)
-                //val txt = recognitions.joinToString(separator = "\n")
                 val txt = recognitions[0]
-                //lastProcessingTimeMs = SystemClock.uptimeMillis() - startTime//menghitung lamanya proses
-                //val waktu = lastProcessingTimeMs.toString()//konversi ke string
                 runOnUiThread {
                     binding.cvResultCamera.visibility = View.VISIBLE
                     resultbar.text = txt.toString()
-                    //processtime.text = "$waktu ms "
-
                     binding.btnDetail.setOnClickListener {
                         Log.d("CLASSIFIER ACTIVITY", "clicked")
                         val uri = Uri.parse("thetaleofwayang://detail")
@@ -218,7 +192,7 @@ class ClassifierActivity : AppCompatActivity() {
 
             }
         } else {
-            Toast.makeText(this, "Unrecognized request code", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Pilih gambar wayang dari galeri", Toast.LENGTH_LONG).show()
         }
     }
 

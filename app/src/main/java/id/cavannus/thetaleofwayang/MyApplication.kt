@@ -19,8 +19,7 @@ class MyApplication : Application() {
                     databaseModule,
                     networkModule,
                     repositoryModule,
-                    useCaseModule,
-                    //viewModelModule
+                    useCaseModule
                 )
             )
         }

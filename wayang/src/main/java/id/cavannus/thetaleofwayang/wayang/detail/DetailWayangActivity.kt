@@ -3,7 +3,6 @@ package id.cavannus.thetaleofwayang.wayang.detail
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -75,8 +74,6 @@ class DetailWayangActivity : AppCompatActivity() {
                         }
                         is Resource.Error<*> -> {
                             binding.detailProgressBar.visibility = View.GONE
-//                        binding.lottieError.visibility = View.VISIBLE
-//                        binding.textError.visibility = View.VISIBLE
                         }
                     }
                 }
@@ -129,8 +126,6 @@ class DetailWayangActivity : AppCompatActivity() {
                             }
                             is Resource.Error<*> -> {
                                 binding.detailProgressBar.visibility = View.GONE
-    //                        binding.lottieError.visibility = View.VISIBLE
-    //                        binding.textError.visibility = View.VISIBLE
                             }
                         }
                     }
@@ -157,12 +152,11 @@ class DetailWayangActivity : AppCompatActivity() {
 
     private fun showDetailWayang(detailWayang: Wayang?) {
         detailWayang?.let {
-            //supportActionBar?.title = detailWayang.nm_wayang
             binding.detailToolbarTitle.text = detailWayang.nm_wayang
             binding.wayangName.text = detailWayang.nm_wayang
             binding.tvWatak.text = detailWayang.watak_wayang
             Glide.with(this@DetailWayangActivity)
-                .load(detailWayang.foto_wayang)
+                .load(detailWayang.foto_wayang2)
                 .placeholder(img_placeholder)
                 .override(500)
                 .into(binding.imgItem)

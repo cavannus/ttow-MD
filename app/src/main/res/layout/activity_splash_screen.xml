@@ -21,18 +21,4 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.499" />
 
-    <!--    <TextView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="16dp"-->
-<!--        android:text="@string/app_name"-->
-<!--        android:fontFamily="@font/poppins"-->
-<!--        android:textSize="16sp"-->
-<!--        android:textColor="@color/white"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="@+id/circleImageView"-->
-<!--        app:layout_constraintStart_toStartOf="@+id/circleImageView"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/circleImageView"-->
-<!--        app:layout_constraintVertical_bias="0.023" />-->
-
 </androidx.constraintlayout.widget.ConstraintLayout>

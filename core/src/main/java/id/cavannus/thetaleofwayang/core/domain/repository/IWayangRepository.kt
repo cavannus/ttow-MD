@@ -1,7 +1,6 @@
 package id.cavannus.thetaleofwayang.core.domain.repository
 
 import id.cavannus.thetaleofwayang.core.data.Resource
-import id.cavannus.thetaleofwayang.core.data.source.local.entity.FavoriteEntity
 import id.cavannus.thetaleofwayang.core.domain.model.Stories
 import id.cavannus.thetaleofwayang.core.domain.model.Wayang
 import kotlinx.coroutines.flow.Flow

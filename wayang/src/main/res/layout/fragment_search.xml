@@ -76,14 +76,6 @@
                 </ScrollView>
             </com.facebook.shimmer.ShimmerFrameLayout>
 
-<!--            <ProgressBar-->
-<!--                android:id="@+id/main_progressBar"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:layout_marginBottom="?attr/actionBarSize"-->
-<!--                android:padding="150dp"-->
-<!--                android:visibility="gone" />-->
-
             <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

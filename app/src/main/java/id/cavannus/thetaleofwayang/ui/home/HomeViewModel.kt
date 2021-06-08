@@ -11,7 +11,3 @@ class HomeViewModel : ViewModel() {
     }
     val text: LiveData<String> = _text
 }
-
-//class HomeViewModel(mealUseCase: WayangUseCase) : ViewModel() {
-//    val wayang = mealUseCase.getAllMeal().asLiveData()
-//}

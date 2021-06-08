@@ -6,7 +6,6 @@ import id.cavannus.thetaleofwayang.core.data.source.local.entity.SearchEntity
 import id.cavannus.thetaleofwayang.core.data.source.local.entity.StoriesEntity
 import id.cavannus.thetaleofwayang.core.data.source.local.entity.WayangEntity
 import kotlinx.coroutines.flow.Flow
-import retrofit2.http.DELETE
 
 @Dao
 interface WayangDao {

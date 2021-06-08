@@ -16,11 +16,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding
     private lateinit var homeViewModel: HomeViewModel
-
     private lateinit var btnScan: Button
-//    lateinit var btnCamera: Button
-//    lateinit var btnGaleri: Button
-//    private val mGalleryRequestCode = 2
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -35,26 +31,12 @@ class HomeFragment : Fragment(), View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        btnCamera = view.findViewById(R.id.btn_camera)
-//	    btnCamera.setOnClickListener(this)
-//	    btnGaleri = view.findViewById(R.id.btn_gallery)
-//	    btnGaleri.setOnClickListener(this)
         btnScan = view.findViewById(R.id.btn_scan)
         btnScan.setOnClickListener(this)
     }
 
     override fun onClick(v: View) {
         when (v.id) {
-//            R.id.btn_gallery -> {
-//                val mIntent = Intent(activity, GetGalleryActivity::class.java)
-//                startActivity(mIntent)
-//            }
-//
-//            R.id.btn_camera -> {
-//                val mIntent = Intent(activity, GetCameraActivity::class.java)
-//                startActivity(mIntent)
-//            }
-
             R.id.btn_scan -> {
                 val mIntent = Intent(activity, ClassifierActivity::class.java)
                 startActivity(mIntent)

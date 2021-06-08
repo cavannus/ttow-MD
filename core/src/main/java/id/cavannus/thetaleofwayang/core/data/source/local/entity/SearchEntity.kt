@@ -18,6 +18,9 @@ data class SearchEntity(
 		@ColumnInfo(name = "foto_wayang")
 		var foto_wayang: String,
 
+		@ColumnInfo(name = "foto_wayang2")
+		var foto_wayang2: String,
+
 		@ColumnInfo(name = "nm_wayang")
 		var nm_wayang: String,
 
