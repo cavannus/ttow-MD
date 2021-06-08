@@ -27,14 +27,14 @@ class ClassifierActivity : AppCompatActivity() {
 
     private lateinit var classifier: ImageClassifier //mendeklarasikan komponen TextView resultbar yang akan dimanipulasi
     private lateinit var resultbar: TextView
-    private lateinit var processtime: TextView
+    //private lateinit var processtime: TextView
     private var lastProcessingTimeMs: Long = 0 //deklarasi variabel lastprocessingtimems bertipe data long
 
     private lateinit var mBitmap: Bitmap
     private val mInputSize = 175
     private val mInputSize2 = 225
     private val mGalleryRequestCode = 2
-    private val mModelPath = "wayang-mobilenet-v2.tflite"
+    private val mModelPath = "wayang-mobilenet-v5.tflite"
     private val mLabelPath = "labels.txt"
     private val mSamplePath = "semar.jpg"
 
@@ -50,7 +50,7 @@ class ClassifierActivity : AppCompatActivity() {
         }
 
         resultbar = findViewById(R.id.result_bar)
-        processtime = findViewById(R.id.process_time_bar)
+        //processtime = findViewById(R.id.process_time_bar)
         classifier = ImageClassifier(assets, mModelPath, mLabelPath, mInputSize, mInputSize2)
 
         if (!canUseCamera()) {
@@ -79,7 +79,7 @@ class ClassifierActivity : AppCompatActivity() {
             val results = classifier.recognizeImage(mBitmap).firstOrNull()
             //binding.galleryResult.text= results?.title+"\n Probabilitas: "+results?.percent+"%"
             binding.cvResult.visibility = View.VISIBLE
-            binding.galleryResult.text= results?.title
+            binding.galleryResult.text= results?.title+"("+results?.percent+"%)"
             lastProcessingTimeMs = SystemClock.uptimeMillis() - startTime//menghitung lamanya proses
             //val waktu = lastProcessingTimeMs.toString()//konversi ke string
             //binding.delaytime.text = "$waktu ms "
@@ -131,14 +131,16 @@ class ClassifierActivity : AppCompatActivity() {
     private fun setupCamera() {
         binding.camera.addPictureTakenListener {
             AsyncTask.execute {
-                val startTime = SystemClock.uptimeMillis()//menghitung waktu awal
+                //val startTime = SystemClock.uptimeMillis()//menghitung waktu awal
                 val recognitions = classifier.recognize(it.data)
-                val txt = recognitions.joinToString(separator = "\n")
-                lastProcessingTimeMs = SystemClock.uptimeMillis() - startTime//menghitung lamanya proses
-                val waktu = lastProcessingTimeMs.toString()//konversi ke string
+                //val txt = recognitions.joinToString(separator = "\n")
+                val txt = recognitions[0]
+                //lastProcessingTimeMs = SystemClock.uptimeMillis() - startTime//menghitung lamanya proses
+                //val waktu = lastProcessingTimeMs.toString()//konversi ke string
                 runOnUiThread {
-                    resultbar.text = txt
-                    processtime.text = "$waktu ms "
+                    binding.cvResultCamera.visibility = View.VISIBLE
+                    resultbar.text = txt.toString()
+                    //processtime.text = "$waktu ms "
                 }
             }
         }
