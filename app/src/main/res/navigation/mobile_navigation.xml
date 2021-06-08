@@ -12,10 +12,10 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="id.cavannus.thetaleofwayang.wayang.gallery.GalleryFragment"
+        android:id="@+id/nav_wayangku"
+        android:name="id.cavannus.thetaleofwayang.wayang.wayangku.StoredWayangFragment"
         android:label="@string/menu_wayang"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/fragment_stored_wayang" />
 
     <fragment
         android:id="@+id/nav_search"

@@ -43,9 +43,11 @@ class FavoriteFragment : Fragment() {
             }
 
             favoriteViewModel.favoriteWayang.observe(viewLifecycleOwner) { dataWayang ->
-                wayangAdapter.setData(dataWayang)
-                binding.lottieEmpty.visibility = if (dataWayang.isNotEmpty()) View.GONE else View.VISIBLE
-                binding.textEmpty.visibility = if (dataWayang.isNotEmpty()) View.GONE else View.VISIBLE
+                if(dataWayang != null){
+                    wayangAdapter.setData(dataWayang)
+                    binding.lottieEmpty.visibility = if (dataWayang.isNotEmpty()) View.GONE else View.VISIBLE
+                    binding.textEmpty.visibility = if (dataWayang.isNotEmpty()) View.GONE else View.VISIBLE
+                }
             }
 
             with(binding.rvWayangFav) {

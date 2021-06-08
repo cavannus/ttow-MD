@@ -16,17 +16,17 @@ import org.koin.core.context.loadKoinModules
 
 class StoredWayangFragment : Fragment() {
 
-    private val favoriteViewModel: StoredWayangViewModel by viewModel()
+    private val storedViewModel: StoredWayangViewModel by viewModel()
 
     private var _binding: FragmentStoredWayangBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         _binding = FragmentStoredWayangBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -36,23 +36,25 @@ class StoredWayangFragment : Fragment() {
 
         if (activity != null) {
 
-            val wayangAdapter = WayangAdapter()
-            wayangAdapter.onItemClick = { selectedData ->
+            val storedAdapter = WayangAdapter()
+            storedAdapter.onItemClick = { selectedData ->
                 val intent = Intent(activity, DetailWayangActivity::class.java)
                 intent.putExtra(DetailWayangActivity.EXTRA_DATA, selectedData)
                 startActivity(intent)
             }
 
-            favoriteViewModel.favoriteWayang.observe(viewLifecycleOwner) { dataWayang ->
-                wayangAdapter.setData(dataWayang)
-                binding.lottieEmpty.visibility = if (dataWayang.isNotEmpty()) View.GONE else View.VISIBLE
-                binding.textEmpty.visibility = if (dataWayang.isNotEmpty()) View.GONE else View.VISIBLE
+            storedViewModel.storedWayang.observe(viewLifecycleOwner) { wayang ->
+                if (wayang != null){
+                    storedAdapter.setData(wayang)
+                    binding?.lottieEmpty?.visibility = if (wayang.isNotEmpty()) View.GONE else View.VISIBLE
+                    binding?.textEmpty?.visibility = if (wayang.isNotEmpty()) View.GONE else View.VISIBLE
+                }
             }
 
-            with(binding.rvWayangFav) {
-                layoutManager = LinearLayoutManager(context)
-                setHasFixedSize(true)
-                adapter = wayangAdapter
+            with(binding?.rvWayangFav) {
+                this?.layoutManager = LinearLayoutManager(context)
+                this?.setHasFixedSize(true)
+                this?.adapter = storedAdapter
             }
         }
     }

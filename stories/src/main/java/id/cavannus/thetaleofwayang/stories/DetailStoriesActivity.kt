@@ -3,8 +3,8 @@ package id.cavannus.thetaleofwayang.stories
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import id.cavannus.thetaleofwayang.core.domain.model.Stories
 import id.cavannus.thetaleofwayang.core.R.drawable.img_placeholder
+import id.cavannus.thetaleofwayang.core.domain.model.Stories
 import id.cavannus.thetaleofwayang.stories.databinding.ActivityDetailStoriesBinding
 
 class DetailStoriesActivity : AppCompatActivity() {

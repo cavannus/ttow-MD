@@ -19,23 +19,10 @@ class WayangRepository(
     private val appExecutors: AppExecutors
 ) : IWayangRepository {
     //HISTORY
-    override fun getAllWayang(): Flow<Resource<List<Wayang>>> =
-        object : NetworkBoundResource<List<Wayang>, List<WayangResponse>>() {
-            override fun loadFromDB(): Flow<List<Wayang>> {
-                return localDataSource.getAllWayang().map { DataMapper.mapEntitiesToDomain(it) }
+    override fun getAllWayang(): Flow<List<Wayang>> =
+            localDataSource.getAllWayang().map {
+                DataMapper.mapEntitiesToDomain(it)
             }
-
-            override fun shouldFetch(data: List<Wayang>?): Boolean =
-                data == null || data.isEmpty()
-
-            override suspend fun createCall(): Flow<ApiResponse<List<WayangResponse>>> =
-                remoteDataSource.getAllWayang()
-
-            override suspend fun saveCallResult(data: List<WayangResponse>) {
-                val wayangList = DataMapper.mapResponsesToEntities(data)
-                localDataSource.insertWayang(wayangList)
-            }
-        }.asFlow()
 
     override fun getWayangByName(query: String): Flow<Resource<List<Wayang>>> =
         object : NetworkBoundResource<List<Wayang>, List<WayangResponse>>() {

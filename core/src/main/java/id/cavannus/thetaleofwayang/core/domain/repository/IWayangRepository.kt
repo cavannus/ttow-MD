@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface IWayangRepository {
     //HISTORY
-    fun getAllWayang(): Flow<Resource<List<Wayang>>>
+    fun getAllWayang(): Flow<List<Wayang>>
     fun getWayangByName(query: String): Flow<Resource<List<Wayang>>>
 
     //FAVORITE

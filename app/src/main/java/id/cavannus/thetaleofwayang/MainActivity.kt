@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(
                 setOf(
                         R.id.nav_home,
-                        R.id.nav_gallery,
+                        R.id.nav_wayangku,
                         R.id.nav_search,
                         R.id.nav_favorite
                 ), drawerLayout)

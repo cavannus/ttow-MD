@@ -10,7 +10,7 @@
             android:icon="@drawable/ic_baseline_home_24"
             android:title="@string/menu_home" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_wayangku"
             android:icon="@drawable/ic_menu_gallery"
             android:title="@string/menu_wayang" />
         <item

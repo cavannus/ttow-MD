@@ -5,5 +5,5 @@ import androidx.lifecycle.asLiveData
 import id.cavannus.thetaleofwayang.core.domain.usecase.WayangUseCase
 
 class StoredWayangViewModel(wayangUseCase: WayangUseCase) : ViewModel() {
-    val favoriteWayang = wayangUseCase.getFavoriteWayang().asLiveData()
+    val storedWayang = wayangUseCase.getAllWayang().asLiveData()
 }
