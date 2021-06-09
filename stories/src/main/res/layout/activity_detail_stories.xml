@@ -35,67 +35,56 @@
             android:textSize="20sp" />
     </androidx.appcompat.widget.Toolbar>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/story_image"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_margin="20dp"
-            tools:src="@tools:sample/backgrounds/scenic"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            android:layout_height="match_parent"
+            android:paddingBottom="20dp">
 
-        <TextView
-            android:id="@+id/story_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="24sp"
-            android:text="@string/title_stories"
-            android:textStyle="bold"
-            android:layout_marginTop="20dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/story_image" />
+            <ImageView
+                android:id="@+id/story_image"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_margin="20dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintDimensionRatio="H,1.5:1"
+                tools:src="@tools:sample/backgrounds/scenic"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:contentDescription="@string/image_description" />
 
+            <TextView
+                android:id="@+id/story_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:text="@string/title_stories"
+                android:textStyle="bold"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/ColorPrimary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/story_image" />
 
-        <TextView
-            android:id="@+id/story_content"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:justificationMode="inter_word"
-            tools:text="@tools:sample/lorem/random"
-            app:layout_constraintTop_toBottomOf="@id/story_title"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:targetApi="o" />
+            <me.biubiubiu.justifytext.library.JustifyTextView
+                android:id="@+id/story_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginBottom="20dp"
+                android:justificationMode="inter_word"
+                android:textSize="14sp"
+                tools:text="@tools:sample/lorem/random"
+                app:layout_constraintTop_toBottomOf="@id/story_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:targetApi="o" />
 
-        <id.cavannus.thetaleofwayang.utils.MyButton
-            android:id="@+id/btn_next"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:layout_marginTop="10dp"
-            android:textSize="16sp"
-            android:text="@string/next"
-            app:layout_constraintTop_toBottomOf="@id/story_content"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <id.cavannus.thetaleofwayang.utils.MyButton
-            android:id="@+id/btn_prev"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            android:textSize="16sp"
-            android:text="@string/previous"
-            app:layout_constraintTop_toBottomOf="@id/story_content"
-            app:layout_constraintStart_toStartOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 </LinearLayout>

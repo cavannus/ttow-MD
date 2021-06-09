@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/no_data"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/lottie_empty"

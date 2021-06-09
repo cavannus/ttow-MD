@@ -4,6 +4,7 @@ import android.content.res.AssetManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.Log
+import id.cavannus.thetaleofwayang.BuildConfig
 import org.tensorflow.lite.Interpreter
 import java.io.BufferedReader
 import java.io.FileInputStream
@@ -40,8 +41,8 @@ class ImageClassifier(assetManager: AssetManager, modelPath: String, labelPath: 
     }
 
     init {
-        model = Interpreter(getModelByteBuffer(assetManager, MODEL_PATH))
-        labels = getLabels(assetManager, LABELS_PATH)
+        model = Interpreter(getModelByteBuffer(assetManager))
+        labels = getLabels(assetManager)
     }
 
     init {
@@ -95,19 +96,18 @@ class ImageClassifier(assetManager: AssetManager, modelPath: String, labelPath: 
         return recognitions.sortedByDescending { it.probability }
     }
     
-    private fun getModelByteBuffer(assetManager: AssetManager, modelPath: String): ByteBuffer {
-        val fileDescriptor = assetManager.openFd(modelPath)
+    private fun getModelByteBuffer(assetManager: AssetManager): ByteBuffer {
+        val fileDescriptor = assetManager.openFd(MODEL_PATH)
         val inputStream = FileInputStream(fileDescriptor.fileDescriptor)
         val fileChannel = inputStream.channel
         val startOffset = fileDescriptor.startOffset
         val declaredLength = fileDescriptor.declaredLength
-        return fileChannel.map(FileChannel.MapMode.READ_ONLY, startOffset, declaredLength)
-                .asReadOnlyBuffer()
+        return fileChannel.map(FileChannel.MapMode.READ_ONLY, startOffset, declaredLength).asReadOnlyBuffer()
     }
     
-    private fun getLabels(assetManager: AssetManager, labelPath: String): List<String> {
+    private fun getLabels(assetManager: AssetManager): List<String> {
         val labels = ArrayList<String>()
-        val reader = BufferedReader(InputStreamReader(assetManager.open(labelPath)))
+        val reader = BufferedReader(InputStreamReader(assetManager.open(LABELS_PATH)))
         while (true) {
             val label = reader.readLine() ?: break
             labels.add(label)
@@ -124,7 +124,7 @@ class ImageClassifier(assetManager: AssetManager, modelPath: String, labelPath: 
         private const val PIXEL_SIZE = 3
 
         private const val LABELS_PATH = "labels.txt"
-        private const val MODEL_PATH = "wayang-mobilenet-v2.tflite"
+        private const val MODEL_PATH = "wayang-mobilenet-v5.tflite"
     }
 
     private fun loadModelFile(assetManager: AssetManager, modelPath: String): MappedByteBuffer {
@@ -169,7 +169,10 @@ class ImageClassifier(assetManager: AssetManager, modelPath: String, labelPath: 
     }
 
     private fun getSortedResult(labelProbArray: Array<FloatArray>): List<Recognition> {
-        Log.d("KlasifikasiDariGaleri", "List Size:(%d, %d, %d)".format(labelProbArray.size,labelProbArray[0].size,labels.size))
+
+        if(BuildConfig.DEBUG) {
+            Log.d("KlasifikasiDariGaleri", "List Size:(%d, %d, %d)".format(labelProbArray.size,labelProbArray[0].size,labels.size))
+        }
 
         val pq = PriorityQueue(
                 maxresults,
@@ -182,12 +185,13 @@ class ImageClassifier(assetManager: AssetManager, modelPath: String, labelPath: 
             val confidence = labelProbArray[0][i]
             if (confidence >= threshold) {
                 pq.add(
-                        Recognition("" + i,
-                                if (labels.size > i) labels[i] else "Unknown", confidence)
+                        Recognition("" + i, if (labels.size > i) labels[i] else "Unknown", confidence)
                 )
             }
         }
-        Log.d("KlasifikasiDariGaleri", "pqsize:(%d)".format(pq.size))
+        if(BuildConfig.DEBUG) {
+            Log.d("KlasifikasiDariGaleri", "pqsize:(%d)".format(pq.size))
+        }
 
         val recognitions = ArrayList<Recognition>()
         val recognitionsSize = pq.size.coerceAtMost(maxresults)

@@ -5,5 +5,5 @@ data class Detection(
     val probability: Float
 ) {
     //override fun toString() = "$name (${probability*100}%)"
-    override fun toString() = "$name"
+    override fun toString() = name
 }

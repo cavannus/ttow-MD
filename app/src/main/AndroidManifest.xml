@@ -39,7 +39,7 @@
         android:theme="@style/Theme.TheTaleOfWayang"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".classifier.ClassifierActivity"
-            android:label="@string/scan_wayang"
+            android:label="@string/scan"
             android:theme="@style/Theme.TheTaleOfWayang.NoActionBar" />
         <activity
             android:name=".MainActivity"

@@ -6,10 +6,8 @@ import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.net.Uri
-import android.os.AsyncTask
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
@@ -21,6 +19,7 @@ import androidx.core.app.ActivityCompat
 import id.cavannus.thetaleofwayang.R
 import id.cavannus.thetaleofwayang.databinding.ActivityClassifierBinding
 import java.io.IOException
+import java.util.concurrent.Executors
 
 class ClassifierActivity : AppCompatActivity() {
     private lateinit var binding: ActivityClassifierBinding
@@ -30,8 +29,7 @@ class ClassifierActivity : AppCompatActivity() {
     private val mInputSize = 175
     private val mInputSize2 = 225
     private val mGalleryRequestCode = 2
-    private val mSamplePath = "semar.jpg"
-    private val mModelPath = "wayang-mobilenet-v2.tflite"
+    private val mModelPath = "wayang-mobilenet-v5.tflite"
     private val mLabelPath = "labels.txt"
 
     @SuppressLint("MissingPermission", "SourceLockedOrientationActivity")
@@ -60,13 +58,13 @@ class ClassifierActivity : AppCompatActivity() {
             startActivityForResult(callGalleryIntent, mGalleryRequestCode)
         }
 
-        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-
-        resources.assets.open(mSamplePath).use {
-            mBitmap = BitmapFactory.decodeStream(it)
-            mBitmap = Bitmap.createScaledBitmap(mBitmap, mInputSize, mInputSize2, true)
-            binding.imgResultGallery.setImageBitmap(mBitmap)
+        binding.btnGallery.setOnClickListener {
+            val callGalleryIntent = Intent(Intent.ACTION_PICK)
+            callGalleryIntent.type = "image/*"
+            startActivityForResult(callGalleryIntent, mGalleryRequestCode)
         }
+
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
         binding.btnClassifyGallery.setOnClickListener {
             val results = classifier.recognizeImage(mBitmap).firstOrNull()
@@ -112,7 +110,8 @@ class ClassifierActivity : AppCompatActivity() {
     @SuppressLint("MissingPermission", "SetTextI18n")
     private fun setupCamera() {
         binding.camera.addPictureTakenListener {
-            AsyncTask.execute {
+            val executor = Executors.newSingleThreadExecutor()
+            executor.execute {
                 val recognitions = classifier.recognize(it.data)
                 val txt = recognitions[0]
                 runOnUiThread {

@@ -71,7 +71,7 @@
             android:drawablePadding="10dp"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
-            android:text="@string/scan_wayang"
+            android:text="@string/scan"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
             android:textSize="16sp"
