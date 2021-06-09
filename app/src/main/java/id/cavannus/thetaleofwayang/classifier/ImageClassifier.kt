@@ -20,7 +20,6 @@ class ImageClassifier(assetManager: AssetManager, modelPath: String, labelPath: 
     private val model: Interpreter
     private var interpreter: Interpreter
     private var labellist: List<String>
-
     private val inputsize: Int = inputSize
     private val inputsize2: Int = inputSize2
     private val pixelsize: Int = 3
@@ -29,16 +28,22 @@ class ImageClassifier(assetManager: AssetManager, modelPath: String, labelPath: 
     private val maxresults = 3
     private val threshold = 0.4f
 
+    companion object {
+        private const val BATCH_SIZE = 1
+        private const val MODEL_INPUT_SIZE = 175
+        private const val MODEL_INPUT_SIZE2 = 225
+        private const val BYTES_PER_CHANNEL = 4
+        private const val PIXEL_SIZE = 3
+        private const val LABELS_PATH = "labels.txt"
+        private const val MODEL_PATH = "wayang-mobilenet-v5.tflite"
+    }
+
     data class Recognition(
         var id: String = "",
         var title: String = "",
         var confidence: Float = 0F,
         val percent: Float = confidence*100
-    )  {
-        override fun toString(): String {
-            return "Title = $title, Hasil Prediksi = $percent)"
-        }
-    }
+    )
 
     init {
         model = Interpreter(getModelByteBuffer(assetManager))
@@ -50,6 +55,7 @@ class ImageClassifier(assetManager: AssetManager, modelPath: String, labelPath: 
         labellist = loadLabelList(assetManager, labelPath)
     }
 
+    //SCAN CAMERA
     fun recognize(data: ByteArray): List<Detection> {
         val result = Array(BATCH_SIZE) { FloatArray(labels.size) }
 
@@ -116,17 +122,7 @@ class ImageClassifier(assetManager: AssetManager, modelPath: String, labelPath: 
         return labels
     }
 
-    companion object {
-        private const val BATCH_SIZE = 1
-        private const val MODEL_INPUT_SIZE = 175
-        private const val MODEL_INPUT_SIZE2 = 225
-        private const val BYTES_PER_CHANNEL = 4
-        private const val PIXEL_SIZE = 3
-
-        private const val LABELS_PATH = "labels.txt"
-        private const val MODEL_PATH = "wayang-mobilenet-v5.tflite"
-    }
-
+    //PICK FROM GALLERY
     private fun loadModelFile(assetManager: AssetManager, modelPath: String): MappedByteBuffer {
         val fileDescriptor = assetManager.openFd(modelPath)
         val inputStream = FileInputStream(fileDescriptor.fileDescriptor)
@@ -159,7 +155,6 @@ class ImageClassifier(assetManager: AssetManager, modelPath: String, labelPath: 
         for (i in 0 until inputsize) {
             for (j in 0 until inputsize) {
                 val `val` = intValues[pixel++]
-
                 byteBuffer.putFloat((((`val`.shr(16)  and 0xFF) - imagemean) / imagestd))
                 byteBuffer.putFloat((((`val`.shr(8) and 0xFF) - imagemean) / imagestd))
                 byteBuffer.putFloat((((`val` and 0xFF) - imagemean) / imagestd))

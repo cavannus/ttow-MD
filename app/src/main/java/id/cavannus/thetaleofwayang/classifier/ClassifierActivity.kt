@@ -32,6 +32,10 @@ class ClassifierActivity : AppCompatActivity() {
     private val mModelPath = "wayang-mobilenet-v5.tflite"
     private val mLabelPath = "labels.txt"
 
+    companion object {
+        private const val REQUEST_CAMERA_CODE = 1
+    }
+
     @SuppressLint("MissingPermission", "SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,6 +86,7 @@ class ClassifierActivity : AppCompatActivity() {
         }
     }
 
+    //SCAN CAMERA
     private fun requestCameraPermissions() {
         ActivityCompat.requestPermissions(
                 this,
@@ -167,10 +172,7 @@ class ClassifierActivity : AppCompatActivity() {
                     Manifest.permission.CAMERA
             ) == PackageManager.PERMISSION_GRANTED
 
-    companion object {
-        private const val REQUEST_CAMERA_CODE = 1
-    }
-
+    //PICK FROM GALLERY
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode == mGalleryRequestCode && resultCode == RESULT_OK) {
