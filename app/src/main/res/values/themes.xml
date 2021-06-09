@@ -25,6 +25,18 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="SplashScreen" parent="Theme.TheTaleOfWayang.NoActionBar">
+        <item name="android:windowBackground">@color/ColorPrimary</item>
+    </style>
+
+    <style name="FragmentHome" parent="Theme.TheTaleOfWayang.NoActionBar">
+        <item name="android:windowBackground">@color/light_grey</item>
+    </style>
+
+    <style name="LayoutHome" parent="Theme.TheTaleOfWayang.NoActionBar">
+        <item name="android:windowBackground">@color/white</item>
+    </style>
+
     <style name="Theme.TheTaleOfWayang.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.TheTaleOfWayang.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

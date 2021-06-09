@@ -38,10 +38,9 @@
             android:theme="@style/Theme.TheTaleOfWayang.NoActionBar" />
         <activity
             android:name=".splash.SplashScreenActivity"
-            android:theme="@style/Theme.TheTaleOfWayang.NoActionBar">
+            android:theme="@style/SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
